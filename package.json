@@ -1,0 +1,27 @@
+{
+  "name": "smartdoor",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.6",
+    "ejs": "*",
+    "path": "*",
+    "body-parser": "*",
+    "passport-facebook": "*"
+  },
+  "description": "SmartDoor System",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RecherDan/SmartDoor.git"
+  },
+  "author": "Dan Recher, Ori Nitzan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RecherDan/SmartDoor/issues"
+  },
+  "homepage": "https://github.com/RecherDan/SmartDoor#readme"
+}
