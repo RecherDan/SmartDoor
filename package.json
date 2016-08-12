@@ -10,6 +10,12 @@
     "ejs": "*",
     "path": "*",
     "body-parser": "*",
+    "node-arp": "*",
+    "fs": "*",
+    "cookie-parser": "*",
+    "express-session": "*",
+    "passport": "*",
+    "passport-local": "*",
     "passport-facebook": "*"
   },
   "description": "SmartDoor System",

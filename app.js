@@ -9,7 +9,7 @@ app.set('views', path.join(__dirname,'views'));
 //app.use(bodyparser({ extended: false }));
 
 
-app.use(require('./router'));
+app.use(require('./routes/router'));
 
 app.listen(8080, function() {
 	console.log("ready on port 8080");
