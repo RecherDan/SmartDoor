@@ -1,0 +1,230 @@
+var mraa = require('mraa'); //require mraa
+console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
+var sleep = require('sleep'); //require mraa
+var colors = require('colors');// to show difrent colore line in console
+var Cylon = require('cylon');
+var delay=2; //the delay between refreshing the screen
+var finalLineArray =[];
+finalLineArray.push("DON'T FORGET!:");
+var numOfCharInLine=18;// 2 characters for 1. 2. 3. etc
+var path = require('path');
+var weather = require('weather-js');
+
+var memos = {};
+console.log("for TEST*************************************************************".rainbow);
+fs = require('fs');
+// 'Cape Town, South Africa' 
+weather.find({search: 'Haifa, Israel', degreeType: 'C'}, function(err, result) {
+
+fs.readFile('/home/root/smartdoor/db/notes.db', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+
+  memos = JSON.parse(data);
+  memos["wether"]="Wehter: " + result[0]["current"]["skytext"] + " T: " + result[0]["current"]["temperature"] + "C Wind: " + result[0]["current"]["winddisplay"] + " humidity: " + result[0]["current"]["humidity"] + "%";
+  console.log(memos["wether"]);
+  console.log("this is one:" + data);
+var ind = 0;
+for (var i in memos){
+	var memolength = memos[i].length;
+	ind++;
+	for ( var j=0; j< memolength; j+=numOfCharInLine) {
+		var length=0;
+		if ( j+ numOfCharInLine > memolength) {
+			var length=(memolength-j);
+		} else {
+			var length=numOfCharInLine;
+		}
+		var stringtopush = ind + "." + memos[i].substring(j, j+length);
+		if ( j != 0 ) stringtopush = "  " + memos[i].substring(j, j+length);
+		if ( i == "wether") stringtopush = memos[i].substring(j, j+length);
+		finalLineArray.push(stringtopush);
+		console.log(stringtopush);
+	}
+	//finalLineArray.push("");
+}
+
+    ///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+		Cylon.robot({
+		connections: {
+			edison: { adaptor: 'intel-iot' }
+		},
+		devices: {
+			lcd: { driver: 'lcd' }
+		},
+		work: function(my) {
+			my.lcd.displayOn( function(){
+			for (var k=0;k<2;k++){ //going through the list 2 times
+				for (var i=0 ;i<finalLineArray.length;i++){
+					my.lcd.clear();
+					for (var j=0;j<4;j++){
+						my.lcd.setCursor(0,j);
+						if (finalLineArray[i+j]){
+							my.lcd.print(finalLineArray[i+j]);
+						}
+						console.log("test1");
+					}
+					console.log("test2");
+				if (i==0){sleep.sleep(delay);if (k==0)sleep.sleep(delay);}//adds delay when we jast update the new screen
+				sleep.sleep(delay);
+				}
+				console.log("test3");
+			}
+			//--------------final------------------------------------------------------
+			my.lcd.setCursor(0,0)
+			my.lcd.print("     SMART DOOR");
+			//--------------final------------------------------------------------------
+		process.exit() // exiting the node js process
+			});
+		}
+		}).start(); 
+});
+
+});
+
+		
+
+
+
+
+
+
+
+
+/*
+
+		//added 18/10/15-++++++++++++++++++++++++++++++++++++++++++++++++++
+		var displayArr={};
+		var indx=0;
+		console.log("1    " + memos[1]);
+		for (var i in memos){
+		console.log("2");
+			for (var j =0 ;j<memos[i].length;j=j+numOfCharInLine){
+			 if (j==0){
+			   displayArr[indx]= i + memos[i].substr(j,numOfCharInLine);
+			  }else {
+			  		displayArr[indx]= "  " + memos[i].substr(j,numOfCharInLine);
+					}
+			  indx++;
+console.log(displayArr[indx]);
+			  
+			}
+		}
+		
+	//added 18/10/15-++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+fs = require('fs');
+fs.readFile('/home/root/scripts/remainder_file.txt', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+	var lineArray=data.split('\n');
+	var numOfLines=lineArray.length;
+    //console.log("numOfLines= %d",numOfLines);
+	for (var i=0;i<numOfLines;i++){
+	tmp=lineArray[i].split('\r');
+	tmp2=tmp[0].match(new RegExp('.{1,'+numOfCharInLine+'}', 'g')); 
+	for (var t=0;t<tmp2.length;t++){
+	if (t==0){tmp2[t]=(i+1).toString()+"."+tmp2[t];}
+		else {tmp2[t]=" "+" "+tmp2[t];}
+	
+	finalLineArray.push(tmp2[t]);
+	}
+	//lineArray[i]=tmp[0];
+	}
+	
+	
+	
+	
+	
+	
+	
+   
+    ///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+		Cylon.robot({
+		connections: {
+			edison: { adaptor: 'intel-iot' }
+		},
+		devices: {
+			lcd: { driver: 'lcd' }
+		},
+		work: function(my) {
+			my.lcd.displayOn( function(){
+			for (var k=0;k<2;k++){ //going through the list 2 times
+			for (var i=0 ;i<numOfLines;i++){
+			my.lcd.clear();
+			for (var j=0;j<4;j++){
+			my.lcd.setCursor(0,j);
+			my.lcd.print(finalLineArray[i+j]);
+			}
+			if (i==0){sleep.sleep(delay);if (k==0)sleep.sleep(delay);}//adds delay when we jast update the new screen
+			sleep.sleep(delay);
+			}
+			}
+			});
+		}
+		}).start(); 
+		///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+		
+		
+		//added 18/10/15-++++++++++++++++++++++++++++++++++++++++++++++++++
+		var displayArr={};
+		var indx=0;
+		for (var i =0 ;i<memos.length;i++){
+			for (var j =0 ;j<memos[i].length;j=j+numOfCharInLine){
+			 if (j==0){
+			   displayArr[indx]= i + memos[i].substr(j,numOfCharInLine);
+			  }else {
+			  		displayArr[indx]= "  " + memos[i].substr(j,numOfCharInLine);
+					}
+			  indx++;
+console.log(displayArr[indx]);
+			  
+			}
+		}
+		
+	//added 18/10/15-++++++++++++++++++++++++++++++++++++++++++++++++++
+
+		
+		
+		
+		
+		///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+		Cylon.robot({
+		connections: {
+			edison: { adaptor: 'intel-iot' }
+		},
+		devices: {
+			lcd: { driver: 'lcd' }
+		},
+		work: function(my) {
+			my.lcd.displayOn( function(){
+			for (var k=0;k<2;k++){ //going through the list 2 times
+			for (var i=0 ;i<numOfLines;i++){
+			my.lcd.clear();
+			for (var j=0;j<4;j++){
+			my.lcd.setCursor(0,j);
+			my.lcd.print(finalLineArray[i+j]);
+			}
+			if (i==0){sleep.sleep(delay);if (k==0)sleep.sleep(delay);}//adds delay when we jast update the new screen
+			sleep.sleep(delay);
+			}
+			}
+			});
+		}
+		}).start(); 
+		///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  
+     
+
+
+
+
+	 process.exit() // exiting the node js process
+
+});
+
+  */ 
+	
+		

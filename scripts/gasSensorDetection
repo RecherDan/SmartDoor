@@ -1,0 +1,49 @@
+var mraa = require('mraa'); //require mraa
+//console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
+	var analogPin4 = new mraa.Aio(4); //setup access analog input Analog pin #4 (A4)
+	var analogValue = analogPin4.read(); //read the value of the analog pin
+	analogThreashold = 580;
+	var sys = require('sys')
+var exec = require('child_process').exec;
+var child;
+// executes `remainder`
+var thershold = 500;
+
+
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'Smartdoorisrael@gmail.com',
+        pass: 'Smartdoor12345678'
+    }
+}, {
+    // default values for sendMail method 
+    from: 'Smartdoorisrael@gmail.com',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+});
+
+
+function oridelay(i) {
+	analogValue = analogPin4.read(); //read the value of the analog pin
+	console.log("analog value on pin A4 : " + analogValue);
+	if ( analogValue > thershold ) {		
+			console.log("FIRE / GAS Was Detected");			
+			transporter.sendMail({
+				to: 'recher.dan@gmail.com',
+				subject: 'SMART DOOR ALERT',
+				text: 'FIRE / GAS Was Detected at your HOME !!!'
+			});
+			console.log("messaeg sent : FIRE / GAS Was Detected");
+	
+	}	
+	setTimeout(function(){oridelay(i+1)} , 1);
+}
+
+
+      oridelay(1);  
+
+
+ 

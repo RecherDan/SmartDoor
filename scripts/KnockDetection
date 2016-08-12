@@ -1,0 +1,75 @@
+var mraa = require('mraa'); //require mraa
+//console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to the console
+	var analogPin5 = new mraa.Aio(5); //setup access analog input Analog pin #4 (A4)
+	var analogValue = analogPin5.read(); //read the value of the analog pin
+	analogThreashold = 580;
+	var sys = require('sys')
+var exec = require('child_process').exec;
+var child;
+// executes `remainder`
+var max = 0;
+var big = 400;
+var low = 100;
+var count = 0;
+var countToNotify = 3;
+var minspace = 100;
+var maxspace = 300;
+var lastcount =0;
+
+
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'Smartdoorisrael@gmail.com',
+        pass: 'Smartdoor12345678'
+    }
+}, {
+    // default values for sendMail method 
+    from: 'Smartdoorisrael@gmail.com',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+});
+
+
+function oridelay(i) {
+	analogValue = analogPin5.read(); //read the value of the analog pin
+	if ( analogValue > big && i > lastcount +minspace) {
+		count++;
+		console.log("Tok: count: " + count);
+		lastcount = i;
+		if ( count == countToNotify ) {
+			transporter.sendMail({
+				to: 'recher.dan@gmail.com',
+				subject: 'Tok Tok, Someone knocking on your door!',
+				text: 'Tok Tok, Someone knocking on your door!'
+			});
+				transporter.sendMail({
+				to: 'restin3@gmail.com',
+				subject: 'Tok Tok, Someone knocking on your door!',
+				text: 'Tok Tok, Someone knocking on your door!'
+			});
+			console.log("Tok tok");
+		}
+	}
+	if ( i >= lastcount +maxspace && count > 0) {
+		count = 0;
+		console.log("start again");
+	}
+	//console.log(analogValue); //write the value of the analog pin to the console
+	if ( analogValue > max ) { max = analogValue; console.log("max: " + analogValue); }
+	//if (analogValue> analogThreashold ){
+		//child = exec("node remainder");
+	//	setTimeout(function(){oridelay(i+1)} , 1);
+	//}else {
+	
+	setTimeout(function(){oridelay(i+1)} , 1);
+	//}
+}
+
+
+      oridelay(1);  
+
+
+ 

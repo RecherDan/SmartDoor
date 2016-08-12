@@ -1,0 +1,60 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/bin/npm', 'install', 'email' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.35
+4 verbose config Skipping project config: /home/root/.npmrc. (matches userconfig)
+5 verbose cache add [ 'email', null ]
+6 verbose cache add name=undefined spec="email" args=["email",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'email',
+7 verbose parsed url   path: 'email',
+7 verbose parsed url   href: 'email' }
+8 silly lockFile a88b7dcd-email email
+9 verbose lock email /home/root/.npm/a88b7dcd-email.lock
+10 silly lockFile a88b7dcd-email email
+11 silly lockFile a88b7dcd-email email
+12 verbose addNamed [ 'email', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile b33e5769-email email@
+15 verbose lock email@ /home/root/.npm/b33e5769-email.lock
+16 silly addNameRange { name: 'email', range: '*', hasData: false }
+17 verbose request where is /email
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id ebd05716ed5fddc8
+20 verbose url raw /email
+21 verbose url resolving [ 'https://registry.npmjs.org/', './email' ]
+22 verbose url resolved https://registry.npmjs.org/email
+23 verbose request where is https://registry.npmjs.org/email
+24 info trying registry request attempt 1 at 18:17:43
+25 http GET https://registry.npmjs.org/email
+26 info retry will retry, error on last attempt: Error: getaddrinfo ESRCH
+27 info trying registry request attempt 2 at 18:17:53
+28 http GET https://registry.npmjs.org/email
+29 info retry will retry, error on last attempt: Error: getaddrinfo ESRCH
+30 info trying registry request attempt 3 at 18:18:53
+31 http GET https://registry.npmjs.org/email
+32 silly lockFile b33e5769-email email@
+33 silly lockFile b33e5769-email email@
+34 error Error: getaddrinfo ESRCH
+34 error     at errnoException (dns.js:37:11)
+34 error     at Object.onanswer [as oncomplete] (dns.js:124:16)
+35 error If you need help, you may report this *entire* log,
+35 error including the npm and node versions, at:
+35 error     <http://github.com/npm/npm/issues>
+36 error System Linux 3.10.17-poky-edison+
+37 error command "node" "/usr/bin/npm" "install" "email"
+38 error cwd /home/root/scripts
+39 error node -v v0.10.35
+40 error npm -v 1.4.28
+41 error syscall getaddrinfo
+42 error code ESRCH
+43 error errno ESRCH
+44 verbose exit [ 1, true ]
