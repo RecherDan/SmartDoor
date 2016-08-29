@@ -181,6 +181,7 @@ function doorCom(command) {
 var net = require('net');
 
 var server = net.createServer(function(socket) {
+	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
 		var tempcom = false;
 		if ( data == "open" || data == "close") {
