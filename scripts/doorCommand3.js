@@ -123,19 +123,8 @@ function doorCom(command) {
 	    else {
 			console.log("FAIL!!! door is still door  %s".underline.red, SopClo);
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-			Cylon.robot({
-			connections: {
-				edison: { adaptor: 'intel-iot' }
-			},
-			devices: {
-				lcd: { driver: 'lcd' }
-			},
-			work: function(my) {
-				my.lcd.displayOn( function(){	
-				my.lcd.print("FAIL!!! motor jam");
-				});
-			}
-			}).start(); 
+
+
 			///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 			process.exit();}
 	
