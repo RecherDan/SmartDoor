@@ -22,6 +22,7 @@ console.log('MRAA Version: ' + mraa.getVersion()); //write the mraa version to t
 var sleep = require('sleep'); //require mraa
 var colors = require('colors');// to show difrent colore line in console
 var Cylon = require('cylon');
+var doorStatus = "ok";
 
 var stpeDigitalPin12 = new mraa.Gpio(12); //setup digital pin to make the spes in the stepper motor
 var directionDigitalPin11=new mraa.Gpio(11); //setup digital pin to make dirction of the routition of the stepper motor 1(clockwise?) 0 (anti clockwise) 
@@ -110,15 +111,17 @@ function doorCom(command) {
 	if (chek<ThrasholdConsiderdOpen+5) {
 		isopen = true;
 		SopClo="open";
+		doorStatus = "Open";
 	}
 	else if (chek>ThrasholdConsiderdClose){ 
 		isopen = false;
 		SopClo="close";
+		doorStatus = "Close";
 	}
 	else {
 			console.log("FAIL!!! door is still door  %s".underline.red, SopClo);
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+			doorStatus = "Fail";
 
 			///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	}
@@ -146,7 +149,7 @@ var server = net.createServer(function(socket) {
 		if ( data == "open" || data == "close") {
 			tempcom = (data == "open")? true : false;	
 			doorCom(tempcom);
-			socket.write("Door ok");
+			socket.write("Door " + doorStatus);
 		}
 		else {
 			socket.write("Error, bad command");
