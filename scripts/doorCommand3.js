@@ -162,19 +162,7 @@ function doorCom(command) {
 	}
 	
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-			Cylon.robot({
-			connections: {
-				edison: { adaptor: 'intel-iot' }
-			},
-			devices: {
-				lcd: { driver: 'lcd' }
-			},
-			work: function(my) {
-				my.lcd.displayOn( function(){	
-				my.lcd.print("      SMART DOOR      ");
-				});
-			}
-			}).start(); 
+
 }
 		///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
