@@ -84,70 +84,52 @@ function doorCom(command) {
 	//============================================================================================================= 
 	
 	///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	Cylon.robot({
-	  connections: {
-	    edison: { adaptor: 'intel-iot' }
-	  },
-	  devices: {
-	    lcd: { driver: 'lcd' }
-	  },
-	  work: function(my) {
-	    my.lcd.displayOn( function(){	
-		if(command) {my.lcd.print("Opening the door");}
-		else{my.lcd.print("Closing the door");}
-		//my.lcd.clear();
-	    });
-	  }
-	}).start(); 
+
 	///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	
 	require("child_process").exec('cyldispOri').unref();
 	  for(var i = 0; i < maxStepsToOpen ;i++){
-	
-	     console.log("avctivating motor".rainbow.underline); 
+	     console.log("avctivating motor"); 
 	     stpeDigitalPin12.write(1);
 	     sleep.usleep(half_time_Of_Sleep_Between_Steps);
 	     stpeDigitalPin12.write(0);
 	     sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
 	     // dispaly current position
 	     chek=analogPin0.read();
-	      console.log("analog data from A0: %d".red.bgGreen,chek);
-	     if  (command) {if (chek<ThrasholdConsiderdOpen) break;}
-	      else {if (chek>ThrasholdConsiderdClose) break;}    
+	     console.log("analog data from A0: %d",chek);
+	     if  (command) {
+	    	 if (chek<ThrasholdConsiderdOpen) break;
+	     }
+	     else {
+	    	 if (chek>ThrasholdConsiderdClose) break;
+	     }    
 	  }
 	
 	//check to see if the motor succeed in opening or closeing the door
 	
-	if (chek<ThrasholdConsiderdOpen+5) {isopen = true;SopClo="open";}
-	    else if (chek>ThrasholdConsiderdClose){ isopen = false;SopClo="close";}
-	    else {
+	if (chek<ThrasholdConsiderdOpen+5) {
+		isopen = true;
+		SopClo="open";
+	}
+	else if (chek>ThrasholdConsiderdClose){ 
+		isopen = false;
+		SopClo="close";
+	}
+	else {
 			console.log("FAIL!!! door is still door  %s".underline.red, SopClo);
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 			///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-			process.exit();}
+	}
 	
 	if (command==isopen){  
 	    console.log("SUSCCESS!!! done door is  %s ".underline.green, SopClo);
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-			Cylon.robot({
-			connections: {
-				edison: { adaptor: 'intel-iot' }
-			},
-			devices: {
-				lcd: { driver: 'lcd' }
-			},
-			work: function(my) {
-				my.lcd.displayOn( function(){
-				if (isopen)	{my.lcd.print("Door is open");}
-				else {my.lcd.print("Door is Close");}
-				});
-			}
-			}).start(); 
+
 			///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		
-	    process.exit() // exiting the node js process
+	     // exiting the node js process
 	}
 	
 			///display:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

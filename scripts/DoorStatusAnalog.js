@@ -11,7 +11,7 @@ var net = require('net');
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
-			socket.write('status' + analogPin0.read());
+			socket.write(analogPin0.read().toString());
 	});
 });
 
