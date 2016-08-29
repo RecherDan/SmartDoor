@@ -74,7 +74,8 @@ function doorCom(command) {
 	    if (isopen) {  SopClo ="open"}//sets the string
 	        else{  SopClo ="close"} 
 	    console.log("the door is alredy %s".underline.yellow, SopClo);
-	    process.exit() // exiting the node js process
+	    doorStatus = "already";
+	    return;
 	}
 	
 	//set the directio we will rotet the motor 
