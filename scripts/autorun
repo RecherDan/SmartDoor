@@ -1,5 +1,0 @@
-#!/bin/sh
-while true; do 
-/home/root/scripts/btc ;
-sleep 15; 
-done
