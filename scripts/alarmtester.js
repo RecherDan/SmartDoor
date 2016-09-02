@@ -1,9 +1,11 @@
+
 var net = require('net');
+var mode = process.argv[2];
 
 var client = new net.Socket();
-client.connect(6002, '127.0.0.1', function() {
+client.connect(6003, '127.0.0.1', function() {
 	console.log('Connected');
-	client.write('check');
+	client.write(mode);
 });
 
 client.on('data', function(data) {
