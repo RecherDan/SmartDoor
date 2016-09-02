@@ -1,6 +1,0 @@
-#!/bin/sh
-while true
-do 
-    eval "/home/root/scripts/btc"
-    sleep 15
-done
