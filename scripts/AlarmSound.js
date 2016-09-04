@@ -41,7 +41,6 @@ function setAlarm(Mode) {
 		PrintDoorStatus("Alarm is already " + Mode);
 		return;
 	}
-	ModeSaver = Mode;
 	else if ( Mode != "On" && Mode != "Off" ) {
 		PrintDoorStatus("Alarm mode " + Mode + " is not eligible!");
 		return;
@@ -50,6 +49,7 @@ function setAlarm(Mode) {
 		PrintDoorStatus("Set Alarm to: " + Mode);
 		setSoundAlarm(Mode);
 		setSoundLights(Mode);
+		ModeSaver = Mode;
 		return
 	}
 }
