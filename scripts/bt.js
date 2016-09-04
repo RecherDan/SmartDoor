@@ -11,7 +11,7 @@ serial.on('found', function(address, name) {
             console.log('connected');
             process.stdin.resume();
             process.stdin.setEncoding('utf8');
-            console.log('Press "1" or "0" and "ENTER" to turn on or off the light.')
+            console.log('Press "1" or "0"s and "ENTER" to turn on or off the light.')
  
             process.stdin.on('data', function (data) {
                 serial.write(data);
