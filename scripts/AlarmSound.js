@@ -1,6 +1,7 @@
 var mraa = require('mraa'); //require mraa
 var sleep = require('sleep'); //require sleep libary to delay between commands
 var net = require('net'); // require net for open server.
+var exec = require('child_process').exec;
 
 // pins definitions
 var AlarmPin = new mraa.Gpio(10); //setup digital pin to make the steps in the stepper motor
@@ -12,6 +13,15 @@ LightsPin.dir(mraa.DIR_OUT); //set the gpio direction to output
 var ModeSaver = "Off";
 
 
+function runcommand(command) {
+	exec(command, function(error, stdout, stderr) {
+  		console.log('stdout: ' + stdout);
+   		console.log('stderr: ' + stderr);
+    	if (error !== null) {
+   		     console.log('exec error: ' + error);
+  		  }
+		});
+}
 
 // this function used for printing door status to the screen
 function PrintDoorStatus(MSG) {
@@ -19,6 +29,9 @@ function PrintDoorStatus(MSG) {
 	console.log(MSG);
 }
 
+function setAlarmBT(Mode) {
+	runcommand('python /home/root/smartdoor/scripts/blueArduinoCommand ' + (Mode == "On" ? "1" , "0");
+}
 function setSoundAlarm(Mode) {
 	//TODO: check if it's work.
 	if ( Mode == "On")
@@ -60,6 +73,7 @@ var server = net.createServer(function(socket) {
 	socket.on('data', function(data) {
 		if ( data == "On" || data == "Off") {
 			setAlarm(data);
+			setAlarmBT(data);
 			socket.write("Alarm " + data);
 		}
 		else {
