@@ -30,7 +30,7 @@ function PrintDoorStatus(MSG) {
 }
 
 function setAlarmBT(Mode) {
-	runcommand('python /home/root/smartdoor/scripts/blueArduinoCommand ' + (Mode == "On" ? "1" , "0");
+	runcommand('python /home/root/smartdoor/scripts/blueArduinoCommand ' + (Mode == "On" ? "1" : "0"));
 }
 function setSoundAlarm(Mode) {
 	//TODO: check if it's work.
