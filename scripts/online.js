@@ -1,6 +1,7 @@
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
 var net = require('net');
+
 var doorconfig = require('./config'); // door configuration
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
