@@ -36,12 +36,12 @@ database.ref().child('doors').child(doorconfig.doorname).child('todo').on("value
 		  if ( snapshot.val()  == "Lock" ) {
 			  valid = true;
 			  port = 6001;
-			  mode = Close;
+			  mode = "Close";
 		  } 
 		  if ( snapshot.val()  == "Unlock" ) {
 			  valid = true;
 			  port = 6001;
-			  mode = Open;
+			  mode = "Open";
 		  } 
 		  if ( valid ) {
 			  var client = new net.Socket();
