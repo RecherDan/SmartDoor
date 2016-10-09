@@ -1,7 +1,8 @@
 var FCM = require('fcm-node');
 var Firebase = require("firebase");
 var doorconfig = require('./config'); // door configuration
-
+var Title = process.argv[2];
+var Msg = process.argv[3];
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
 	    authDomain: "smartdoor-2f29b.firebaseapp.com",
@@ -36,8 +37,8 @@ snapshot.forEach(function(childSnapshot) {
 			    to: childSnapshot.child("toekn").val(), 
 			    
 			    notification: {
-			        title: 'Title of your push notification', 
-			        body: 'Body of your push notification' 
+			        title: Title, 
+			        body: Msg 
 			    }
 			};
 
@@ -52,3 +53,5 @@ snapshot.forEach(function(childSnapshot) {
 
 });
 });
+
+console.log("Finish");
