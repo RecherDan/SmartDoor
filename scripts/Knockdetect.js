@@ -8,7 +8,6 @@ var minThreshold = 150;
 var MaxtimeBetweenKnocks = 1000;
 var MintimeBetweenKnocks = 100;
 setInterval(function() {
-	console.log(analogPin1.read().toString());
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
 		KnockCount = 0;
