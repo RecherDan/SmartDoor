@@ -11,9 +11,11 @@ var config = {
 	    messagingSenderId: "693048105512"
 	  };
 Firebase.initializeApp(config);
+
+var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
-var database = Firebase.database();
+
 
 // pins definitions
 var StepPin = new mraa.Gpio(12); //setup digital pin to make the steps in the stepper motor
