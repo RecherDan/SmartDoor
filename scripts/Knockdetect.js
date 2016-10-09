@@ -12,6 +12,9 @@ setInterval(function() {
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
 		KnockCount = 0;
 	}
+	if ( analogPin1.read() > minThreshold ) {
+		console.log("passthreshold " + analogPin1.read());
+	}
 	if ( ( analogPin1.read() > minThreshold ) && ((d.getTime() - lastKnock) >  MintimeBetweenKnocks )) {
 		console.log("Took " + KnockCount);
 		KnockCount=KnockCount+1;
