@@ -14,7 +14,7 @@ var rootref = database.ref().child('users');
 //var doorref = rootref.child(doorconfig.doorname);
 
 var serverKey = 'https://smartdoor-2f29b.firebaseio.com';
-var fcm = new FCM(serverKey);
+//var fcm = new FCM(serverKey);
 
 
 rootref.once('value', function(snapshot) {
