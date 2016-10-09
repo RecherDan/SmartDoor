@@ -50,6 +50,7 @@ function StepMotor(Direction) {
     else 
     	DirectionPin.write(dirToClose);
     
+    
     for(var i = 0; i < maxStepsToOpen ;i++){
 	    StepPin.write(1);
 	    sleep.usleep(half_time_Of_Sleep_Between_Steps);
@@ -93,12 +94,18 @@ function doorCom(command) {
 		return ;	
 	}
 	
+	//update status
+	if ( command == "Open")
+		doorref.child('doorstatus').set("Unlocking");
+	if ( command == "Close")
+		doorref.child('doorstatus').set("Locking");
+	
 	// step the motor
 	StepMotor(command);
 		
 	// check status after operation
 	motorStatus = MotorStatus();
-	doorref.child('doorstatus').set(motorStatus);
+	
 	if ( command == "Open" && motorStatus == "Open" ) {
 		PrintDoorStatus("Door Open sucessfully!");
 		return ;

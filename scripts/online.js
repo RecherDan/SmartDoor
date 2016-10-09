@@ -28,7 +28,7 @@ getIP(function (err, ip) {
 });
 
 setInterval(function() {
-  console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
+  //console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
   var d = new Date();
   var rootref = database.ref().child('doors');
   var doorref = rootref.child(doorconfig.doorname);
