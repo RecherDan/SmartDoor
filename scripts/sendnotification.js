@@ -52,6 +52,7 @@ snapshot.forEach(function(childSnapshot) {
   }
 
 });
+return;
 });
 
 console.log("Finish");
