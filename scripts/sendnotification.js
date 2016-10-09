@@ -15,7 +15,7 @@ var database = Firebase.database();
 var rootref = database.ref().child('users');
 //var doorref = rootref.child(doorconfig.doorname);
 
-var serverKey = '';
+var serverKey = 'AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ';
 var fcm = new FCM(serverKey);
 
 
