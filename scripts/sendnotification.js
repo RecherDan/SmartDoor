@@ -26,6 +26,6 @@ snapshot.forEach(function(childSnapshot) {
   // childData will be the actual contents of the child
   var childData = childSnapshot.val();
   console.log(key);
-  console.log(childSnapshot['token']);
+  console.log(childSnapshot.child('token').val());
 });
 });
