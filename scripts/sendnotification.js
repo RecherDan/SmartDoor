@@ -17,10 +17,14 @@ var serverKey = 'https://smartdoor-2f29b.firebaseio.com';
 //var fcm = new FCM(serverKey);
 
 
-rootref.once('value', function(snapshot) {
-	  snapshot.forEach(function(childSnapshot) {
-	    var childKey = childSnapshot.key();
-	    var childData = childSnapshot.val();
-	    console.log(childData);
-	  });
+var query = Firebase.database().ref("users").orderByKey();
+query.once("value")
+.then(function(snapshot) {
+snapshot.forEach(function(childSnapshot) {
+  // key will be "ada" the first time and "alan" the second time
+  var key = childSnapshot.key;
+  // childData will be the actual contents of the child
+  var childData = childSnapshot.val();
+  console.log(childData);
+});
 });
