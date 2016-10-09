@@ -28,7 +28,7 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).child('todo').on("value", function(snapshot) {
-	  console.log("todo " + snapshot);
+	  console.log("todo " + snapshot.val());
 	});
 
 setInterval(function() {
