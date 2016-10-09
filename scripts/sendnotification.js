@@ -18,14 +18,14 @@ var serverKey = 'https://smartdoor-2f29b.firebaseio.com';
 
 
 var query = Firebase.database().ref("users").orderByKey();
-query.once("value")
-.then(function(snapshot) {
+query.once("value", function(snapshot) {
 snapshot.forEach(function(childSnapshot) {
   // key will be "ada" the first time and "alan" the second time
   var key = childSnapshot.key;
   // childData will be the actual contents of the child
   var childData = childSnapshot.val();
   console.log(key);
-  console.log(childSnapshot.child("token").val());
+  console.log(childSnapshot.child("toekn").val());
+  console.log(childSnapshot.child("door").val());
 });
 });
