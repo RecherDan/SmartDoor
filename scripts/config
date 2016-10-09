@@ -1,0 +1,5 @@
+var config = {};
+
+config.doorname = "dan-door";
+
+module.exports = config;

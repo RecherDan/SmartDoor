@@ -1,6 +1,19 @@
 var mraa = require('mraa'); //require mraa
 var sleep = require('sleep'); //require sleep libary to delay between commands
 var net = require('net'); // require net for open server.
+var doorconfig = require('./config'); // door configuration
+var Firebase = require("firebase");
+var config = {
+	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
+	    authDomain: "smartdoor-2f29b.firebaseapp.com",
+	    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
+	    storageBucket: "",
+	    messagingSenderId: "693048105512"
+	  };
+Firebase.initializeApp(config);
+var rootref = database.ref().child('doors');
+var doorref = rootref.child(doorconfig.doorname);
+var database = Firebase.database();
 
 // pins definitions
 var StepPin = new mraa.Gpio(12); //setup digital pin to make the steps in the stepper motor
@@ -23,6 +36,7 @@ var commendstr="unnoknown";
 // this function used for printing door status to the screen
 function PrintDoorStatus(MSG) {
 	// TODO: command to screen!
+	doorref.child('doormsg').set(MSG);
 	console.log(MSG);
 }
 
@@ -82,7 +96,7 @@ function doorCom(command) {
 		
 	// check status after operation
 	motorStatus = MotorStatus();
-	
+	doorref.child('doorstatus').set(motorStatus);
 	if ( command == "Open" && motorStatus == "Open" ) {
 		PrintDoorStatus("Door Open sucessfully!");
 		return ;
@@ -111,6 +125,7 @@ var server = net.createServer(function(socket) {
 			inOperation = 1;
 			doorCom(data);
 			var motorStatus = MotorStatus();
+			doorref.child('doorstatus').set(motorStatus);
 			inOperation = 0;
 			socket.write("Door " + motorStatus);
 		}

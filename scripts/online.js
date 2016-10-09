@@ -1,5 +1,7 @@
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
+var doorconfig = require('./config'); // door configuration
+
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -26,17 +28,19 @@ getIP(function (err, ip) {
 });
 
 setInterval(function() {
-  console.log("I am doing my 0.1 minutes check");
+  console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
   var d = new Date();
   var rootref = database.ref().child('doors');
-  var doorref = rootref.child('dan-door');
+  var doorref = rootref.child(doorconfig.doorname);
   //exec tester.js to receive door information
-  doorref.set({ip: eip,
-	  time: d.getTime(),
-	  doorstatus: doorstatus,
-	  smokedetect: smokedet,
-	  alarm: alarm,
-	  lastevent: lastevent
-	  });
+  doorref.child('ip').set(eip);
+  doorref.child('time').set(d.getTime());
+  //doorref.set({ip: eip,
+	//  time: d.getTime(),
+	  //doorstatus: doorstatus,
+	//  smokedetect: smokedet,
+	//  alarm: alarm,
+	//  lastevent: lastevent
+	//  });
   // do your stuff here
 }, the_interval);
