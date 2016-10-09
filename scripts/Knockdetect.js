@@ -4,8 +4,8 @@ var analogPin1 = new mraa.Aio(3); //to indecat if the door isclose or not useing
 
 var KnockCount = 0;
 var lastKnock = 0;
-var minThreshold = 150;
-var MaxtimeBetweenKnocks = 1000;
+var minThreshold = 100;
+var MaxtimeBetweenKnocks = 3000;
 var MintimeBetweenKnocks = 100;
 setInterval(function() {
 	var d = new Date();
