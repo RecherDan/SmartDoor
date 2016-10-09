@@ -6,7 +6,13 @@ var childProcess = require('child_process'), child;
 var lastread = 1000;
 var margin = 10;
 setInterval(function() {
-	console.log(myDigitalPin6.read());
-	
+	if (myDigitalPin6.read() == 1 ) {
+		console.log("Movement!")
+		    var stop = new Date().getTime();
+			while(new Date().getTime() < stop + 5000) {
+				;
+			}
+	}
+
 	
 }, the_interval);
