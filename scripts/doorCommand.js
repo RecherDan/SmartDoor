@@ -57,7 +57,6 @@ function StepMotor(Direction) {
 	    StepPin.write(0);
 	    sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
 	    var PotentiometerRead = PotentiometerStatus.read();
-	    console.log(PotentiometerRead);
 	    if (Direction == "Open" && PotentiometerRead < ThrasholdConsiderdOpen)
 	    	break;
 	    if (Direction == "Close" && PotentiometerRead > ThrasholdConsiderdClose)
@@ -68,7 +67,6 @@ function StepMotor(Direction) {
 // MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
 function MotorStatus() {
 	var PotentiometerRead = PotentiometerStatus.read();
-	 console.log(PotentiometerRead);
 	if ( PotentiometerRead < ThrasholdConsiderdOpen ) return "Open";
 	else if ( PotentiometerRead > ThrasholdConsiderdClose ) return "Close";
 	return "Middle";
