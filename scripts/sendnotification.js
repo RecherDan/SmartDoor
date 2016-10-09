@@ -13,7 +13,7 @@ var database = Firebase.database();
 var rootref = database.ref().child('users');
 //var doorref = rootref.child(doorconfig.doorname);
 
-var serverKey = '';
+var serverKey = 'https://smartdoor-2f29b.firebaseio.com';
 var fcm = new FCM(serverKey);
 
 

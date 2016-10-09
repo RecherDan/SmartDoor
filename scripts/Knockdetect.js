@@ -17,7 +17,7 @@ setInterval(function() {
 		KnockCount=KnockCount+1;
 		lastKnock = d.getTime();
 	}
-	if ( KnockCount > 3 ) {
+	if ( KnockCount >= 3 ) {
 		KnockCount = 0;
 		console.log("Took Took Took");
 	}	
