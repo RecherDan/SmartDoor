@@ -6,14 +6,11 @@ var KnockCount = 0;
 var lastKnock = 0;
 var minThreshold = 100;
 var MaxtimeBetweenKnocks = 3000;
-var MintimeBetweenKnocks = 100;
+var MintimeBetweenKnocks = 500;
 setInterval(function() {
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
 		KnockCount = 0;
-	}
-	if ( analogPin1.read() > minThreshold ) {
-		console.log("passthreshold " + analogPin1.read());
 	}
 	if ( ( analogPin1.read() > minThreshold ) && ((d.getTime() - lastKnock) >  MintimeBetweenKnocks )) {
 		console.log("Took " + KnockCount);
@@ -21,6 +18,7 @@ setInterval(function() {
 		lastKnock = d.getTime();
 	}
 	if ( KnockCount > 3 ) {
-		console.log("Took Took");
+		KnockCount = 0;
+		console.log("Took Took Took");
 	}	
 }, the_interval);
