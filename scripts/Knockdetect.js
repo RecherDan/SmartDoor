@@ -18,9 +18,9 @@ setInterval(function() {
 	if ( ( analogPin1.read() > minThreshold ) && ((d.getTime() - lastKnock) >  MintimeBetweenKnocks )) {
 		console.log("Took " + KnockCount);
 		KnockCount=KnockCount+1;
+		lastKnock = d.getTime();
 	}
 	if ( KnockCount > 3 ) {
 		console.log("Took Took");
 	}	
-	lastKnock = d.getTime();
 }, the_interval);
