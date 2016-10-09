@@ -27,6 +27,10 @@ getIP(function (err, ip) {
     eip = ip;
 });
 
+database.ref().child('doors').child(doorconfig.doorname).child('todo').on("value", function(snapshot) {
+	  console.log("todo " + snapshot);
+	});
+
 setInterval(function() {
   //console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
   var d = new Date();
