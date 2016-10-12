@@ -30,6 +30,7 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
+		console.log(snapshot.child('todo'.child('log'));
 	  if (snapshot.child('todo').val() != "null" ) {
 		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
