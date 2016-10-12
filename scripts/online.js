@@ -49,7 +49,11 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
-			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{'name': " + snapshot.child('todo-name').val() + ", 'todo':"  + snapshot.child('todo').val() + " }");
+			  var log = {
+					  name: snapshot.child('todo-name').val(),
+					  todo: snapshot.child('todo').val()
+			  }
+			  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
 			  if ( doorconfig == false ) {
 				  var client = new net.Socket();
 				  client.connect(port, '127.0.0.1', function() {
