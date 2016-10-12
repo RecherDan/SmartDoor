@@ -55,6 +55,9 @@ function applyService (port, mode) {
 		  client.on('close', function() {
 		  	console.log('Connection closed');
 		  });
+		  client.on('error', function(e) {
+			  console.log('Error');
+		  });
 	  }
 }
 
