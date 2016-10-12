@@ -6,17 +6,22 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.2.6",
-    "ejs": "*",
-    "path": "*",
     "body-parser": "*",
-    "node-arp": "*",
-    "fs": "*",
     "cookie-parser": "*",
+    "ejs": "*",
+    "errorhandler": "*",
+    "express": "4.*",
     "express-session": "*",
+    "firebase": "^3.4.1",
+    "fs": "*",
+    "method-override": "*",
+    "morgan": "*",
+    "multer": "*",
+    "node-arp": "*",
     "passport": "*",
+    "passport-facebook": "*",
     "passport-local": "*",
-    "passport-facebook": "*"
+    "path": "*"
   },
   "description": "SmartDoor System",
   "main": "app.js",
@@ -29,5 +34,9 @@
   "bugs": {
     "url": "https://github.com/RecherDan/SmartDoor/issues"
   },
-  "homepage": "https://github.com/RecherDan/SmartDoor#readme"
+  "homepage": "https://github.com/RecherDan/SmartDoor#readme",
+  "devDependencies": {
+    "external-ip": "^0.2.4",
+    "ip": "^1.1.3"
+  }
 }

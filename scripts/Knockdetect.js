@@ -2,6 +2,22 @@ var mraa = require('mraa'); //require mraa
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var analogPin1 = new mraa.Aio(3); //to indecat if the door isclose or not useing a potensiometer
 var childProcess = require('child_process'), child;
+var doorconfig = require('./config'); // door configuration
+var Firebase = require("firebase");
+var config = {
+	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
+	    authDomain: "smartdoor-2f29b.firebaseapp.com",
+	    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
+	    storageBucket: "",
+	    messagingSenderId: "693048105512"
+	  };
+Firebase.initializeApp(config);
+
+var database = Firebase.database();
+var rootref = database.ref().child('doors');
+var doorref = rootref.child(doorconfig.doorname);
+
+
 var KnockCount = 0;
 var lastKnock = 0;
 var minThreshold = 100;
@@ -29,5 +45,13 @@ setInterval(function() {
 			   console.log('Child Process STDOUT: '+stdout);
 			   console.log('Child Process STDERR: '+stderr);
 			 });
+		doorref.child('notification').set('true');
+		doorreg.child('notification-title').set("Knock knock!");
+		doorreg.child('notification-msg').set("Hey! some one is knocking!!!");
+	    var stop = new Date().getTime();
+		while(new Date().getTime() < stop + 5000) {
+			;
+		}
+		doorref.child('notification').set('false');
 	}	
 }, the_interval);

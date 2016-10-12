@@ -7,7 +7,7 @@ var expressSession = require('express-session');
 var path = require('path');
 var arp = require('node-arp');
 var fs = require('fs');
-var debug = 0;
+var debug = 1;
 var lan = 0;
 function runcommand(command) {
 	exec(command, function(error, stdout, stderr) {
@@ -107,7 +107,7 @@ var settings = {};
 var wifi = {};
 var memos = {};
 var memlastupdate = 0;
-fs.readFile(path.join(__dirname, 'db/notes.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/notes.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -119,7 +119,7 @@ fs.readFile(path.join(__dirname, 'db/notes.db'), "utf-8"  , function read(err, d
 	}
 	
 });
-fs.readFile(path.join(__dirname, 'db/settings.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/settings.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -131,7 +131,7 @@ fs.readFile(path.join(__dirname, 'db/settings.db'), "utf-8"  , function read(err
 	}
 	
 });
-fs.readFile(path.join(__dirname, 'db/users.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/users.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -143,7 +143,7 @@ fs.readFile(path.join(__dirname, 'db/users.db'), "utf-8"  , function read(err, d
 	}
 	
 });
-fs.readFile(path.join(__dirname, 'db/savedbt.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/savedbt.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -156,7 +156,7 @@ fs.readFile(path.join(__dirname, 'db/savedbt.db'), "utf-8"  , function read(err,
 	
 });
 
-fs.readFile(path.join(__dirname, 'db/newbt.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/newbt.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -169,7 +169,7 @@ fs.readFile(path.join(__dirname, 'db/newbt.db'), "utf-8"  , function read(err, d
 	
 });
 
-fs.readFile(path.join(__dirname, 'db/phone.db'), "utf-8"  , function read(err, data) {
+fs.readFile(path.join(__dirname, '../db/phone.db'), "utf-8"  , function read(err, data) {
 	if ( err ) {
 	 	console.log(err);
 	} else {
@@ -212,7 +212,7 @@ passport.use(new passportLocal.Strategy(
 				var delta = date.getTime() - users[mac];
 				users[mac]=date.getTime();
 				console.log('new mac!' + mac);
-				fs.writeFile('db/users.db', JSON.stringify(users), function(err) {
+				fs.writeFile('../db/users.db', JSON.stringify(users), function(err) {
 					
 				});
     		}
@@ -229,8 +229,8 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
 	done(null, { id: id, name: id});
 });
-router.use(express.static(__dirname));
-
+//router.use(express.static(__dirname));
+router.use(express.static(path.join(__dirname, '../views/')));
 function alreadyloged(req,res, next) {
 	if ( lan == 1 ) {
 		if ( req.isAuthenticated() ) next();
@@ -281,7 +281,7 @@ router.post('/' , passport.authenticate('local') ,function(req,res) {
 router.post('/addphone' , function(req, res) {
 	console.log('new phone: ' + req.body.phonename + ' and name is: ' + req.body.phone);
 	phones[req.body.phone]=req.body.phonename;
-	fs.writeFile('db/phone.db', JSON.stringify(phones), function(err) {
+	fs.writeFile('../db/phone.db', JSON.stringify(phones), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -289,7 +289,7 @@ router.post('/addphone' , function(req, res) {
 router.post('/delphone' , function(req, res) {
 	console.log('del phone: ' + req.body.phone + ' and name is: ' + phones[req.body.phone]);
 	delete phones[req.body.phone];
-	fs.writeFile('db/phone.db', JSON.stringify(phones), function(err) {
+	fs.writeFile('../db/phone.db', JSON.stringify(phones), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -297,7 +297,7 @@ router.post('/delphone' , function(req, res) {
 router.post('/newbt' , function(req, res) {
 	console.log('new bt: ' + req.body.newbt + ' and name is: ' + btnew[req.body.newbt]);
 	btusers[req.body.newbt]=btnew[req.body.newbt];
-	fs.writeFile('db/savedbt.db', JSON.stringify(btusers), function(err) {
+	fs.writeFile('../db/savedbt.db', JSON.stringify(btusers), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -305,7 +305,7 @@ router.post('/newbt' , function(req, res) {
 router.post('/delbt' , function(req, res) {
 	console.log('del bt: ' + req.body.btrem + ' and name is: ' + btnew[req.body.btrem]);
 	delete btusers[req.body.btrem];
-	fs.writeFile('db/savedbt.db', JSON.stringify(btusers), function(err) {
+	fs.writeFile('../db/savedbt.db', JSON.stringify(btusers), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -317,7 +317,7 @@ router.post('/setemer' , function(req, res) {
 	settings['callemer']=req.body.callemer;			
 	settings['alarmemer']=req.body.alarmemer;
 	settings['callto']=req.body.callto;
-	fs.writeFile('db/settings.db', JSON.stringify(settings), function(err) {
+	fs.writeFile('../db/settings.db', JSON.stringify(settings), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -325,7 +325,7 @@ router.post('/setemer' , function(req, res) {
 router.post('/setbt' , function(req, res) {
 	console.log('new settings: btopen:' + req.body.btopen);
 	settings['btopen']=req.body.btopen;
-	fs.writeFile('db/settings.db', JSON.stringify(settings), function(err) {
+	fs.writeFile('../db/settings.db', JSON.stringify(settings), function(err) {
 					
 	});
 	res.redirect('./#Settings');
@@ -334,7 +334,7 @@ router.post('/setbt' , function(req, res) {
 router.post('/updatememos' , function(req, res) {
 	console.log('new memos!:' + req.body.data);
 	memos=JSON.parse(req.body.data);
-	fs.writeFile('db/notes.db', req.body.data, function(err) {
+	fs.writeFile('../db/notes.db', req.body.data, function(err) {
 					
 	});
 	memlastupdate = req.body.lastupdate;

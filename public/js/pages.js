@@ -44,7 +44,7 @@ function sendsmsall() {
 var btref = document.getElementById("btrefresh");
 btref.addEventListener('click', function(ev) {
         btref.disabled=true;
-	    $.get("./db/newbt.db", function(data, status){
+	    $.get("static/db/newbt.db", function(data, status){
             var btnames = document.getElementById("btnames");
             var recbtnames = JSON.parse(data);
             btnames.innerHTML='';
@@ -159,7 +159,7 @@ function refsite() {
 				}
 			}
         });
- 	    $.get("./db/savedbt.db", function(data, status){
+ 	    $.get("static/db/savedbt.db", function(data, status){
             var savedbt = document.getElementById("savedbt");
             var recbtnames = JSON.parse(data);
             savedbt.innerHTML='';
@@ -168,7 +168,7 @@ function refsite() {
             }
         }); 
         if ( Object.keys(memos).length == 0 ) {
- 	    $.get("./db/notes.db", function(data, status){
+ 	    $.get("static/db/notes.db", function(data, status){
  	      	var date = new Date();
 			memlastupdate = date.getTime();
             memos = JSON.parse(data);
@@ -184,7 +184,7 @@ function refsite() {
             }
         });   
         }
- 	    /*$.get("./db/wifi.db", function(data, status){
+ 	    /*$.get("static/db/wifi.db", function(data, status){
             var wifinames = document.getElementById("wifinames");
             var recbtnames = JSON.parse(data);
             wifinames.innerHTML='';
@@ -192,7 +192,7 @@ function refsite() {
             	wifinames.innerHTML+='<option>' + recbtnames[key] + '</option>';
             }
         });*/   
- 	    $.get("./db/phone.db", function(data, status){
+ 	    $.get("static/db/phone.db", function(data, status){
             var phonenum = document.getElementById("phonenum");
             var callto = document.getElementById("callto");
             recbtnames = JSON.parse(data);
@@ -204,7 +204,7 @@ function refsite() {
             	callto.innerHTML+='<option>' + key + '</option>'; 
             }
         });   
-         $.get("./db/settings.db", function(data, status){
+         $.get("static/db/settings.db", function(data, status){
             settings = JSON.parse(data);
             for (key in settings) {
             	if ( key != "callto" ) {
