@@ -30,8 +30,8 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
-	database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 	  if (snapshot.child('todo').val() != "null" ) {
+		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
 		  var valid = false;
 		  var port = 6001;
@@ -48,21 +48,22 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  } 
 		  if ( valid ) {
 			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: " + snapshot.child('todo-name').val() + " todo: " + snapshot.child('todo').val() + " }");
-			  
-			  var client = new net.Socket();
-			  client.connect(port, '127.0.0.1', function() {
-			  	console.log('Connected');
-			  	client.write(mode);
-			  });
-
-			  client.on('data', function(data) {
-			  	console.log('Received: ' + data);
-			  	client.destroy(); // kill client after server's response
-			  });
-
-			  client.on('close', function() {
-			  	console.log('Connection closed');
-			  });
+			  if ( doorconfig == false ) {
+				  var client = new net.Socket();
+				  client.connect(port, '127.0.0.1', function() {
+				  	console.log('Connected');
+				  	client.write(mode);
+				  });
+	
+				  client.on('data', function(data) {
+				  	console.log('Received: ' + data);
+				  	client.destroy(); // kill client after server's response
+				  });
+	
+				  client.on('close', function() {
+				  	console.log('Connection closed');
+				  });
+			  }
 		  }
 	  }
 		  
