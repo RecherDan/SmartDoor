@@ -46,7 +46,8 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
-			  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
+			  snapshot.child('todo').setValue("null");
+			  //database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: " + snapshot.child('todo-name').val() + " todo: " + snapshot.child('todo').val() + " }");
 			  
 			  var client = new net.Socket();
