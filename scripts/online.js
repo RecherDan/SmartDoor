@@ -30,6 +30,7 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
+	database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 	  if (snapshot.child('todo').val() != "null" ) {
 		  console.log("todo " + snapshot.child('todo').val());
 		  var valid = false;
@@ -46,8 +47,6 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
-			  snapshot.child('todo').setValue("null");
-			  //database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: " + snapshot.child('todo-name').val() + " todo: " + snapshot.child('todo').val() + " }");
 			  
 			  var client = new net.Socket();
