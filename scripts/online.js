@@ -38,7 +38,7 @@ function storeLog(name, todo) {
 	  }
 	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
 }
-function applyService (port, mode) {
+function applyService (port, mode, emergency) {
 	  
 	  if ( doorconfig.debug == false ) {
 		  var client = new net.Socket();
@@ -57,6 +57,15 @@ function applyService (port, mode) {
 		  });
 		  client.on('error', function(e) {
 			  console.log('Error');
+			  if ( emergency == true ) {
+			        client.setTimeout(4000, function() {
+			            client.connect(port, '127.0.0.1', function(){
+			    		  	console.log('Connected');
+			    		  	client.write(mode);
+			            });
+			        });
+			        console.log('Emrgency mode keeping trying to apply service!');
+			  }
 		  });
 	  }
 }
@@ -69,16 +78,16 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  console.log("todo " + snapshot.child('todo').val());
 		  if ( snapshot.child('todo').val()  == "Lock" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  applyService(6001, "Close");
+			  applyService(6001, "Close", false);
 		  } 
 		  if ( snapshot.child('todo').val()  == "Unlock" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  applyService(6001, "Open");
+			  applyService(6001, "Open", false);
 		  } 
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  applyService(6001, "Open");
-			  applyService(6003, "");
+			  applyService(6001, "Open", true);
+			  applyService(6003, "", true);
 		  } 
 	  }
 		  
