@@ -29,14 +29,16 @@ getIP(function (err, ip) {
     eip = ip;
 });
 
-function applyService (port, mode) {
+function storeLog(name, todo) {
 	  var d = new Date();
 	  var log = {
-			  name: snapshot.child('todo-name').val(),
-			  todo: snapshot.child('todo').val(),
+			  name: name,
+			  todo: todo,
 			  time: d.getTime()
 	  }
 	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
+}
+function applyService (port, mode) {
 	  
 	  if ( doorconfig.debug == false ) {
 		  var client = new net.Socket();
@@ -63,12 +65,15 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
 		  if ( snapshot.child('todo').val()  == "Lock" ) {
+			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  applyService(6001, "Close");
 		  } 
 		  if ( snapshot.child('todo').val()  == "Unlock" ) {
+			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  applyService(6001, "Open");
 		  } 
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
+			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  applyService(6001, "Open");
 			  applyService(6003, "");
 		  } 
