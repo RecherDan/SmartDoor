@@ -19,7 +19,7 @@ var doorref = rootref.child(doorconfig.doorname);
 
 // pins definitions
 var myDigitalPin7 = new mraa.Gpio(7);
-myDigitalPin7.dir(mraa.DIR_IN);
+myDigitalPin7.dir(mraa.DIR_OUT);
 var StepPin = new mraa.Gpio(12); //setup digital pin to make the steps in the stepper motor
 var DirectionPin=new mraa.Gpio(11); //setup digital pin to make direction of the rotation of the stepper motor 1(clockwise) 0 (anti clockwise) 
 StepPin.dir(mraa.DIR_OUT); //set the gpio direction to output
