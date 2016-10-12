@@ -30,8 +30,9 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
-		console.log(snapshot.child('test'));
+		
 	  if (snapshot.child('todo').val() != "null" ) {
+		  console.log(snapshot.child('test'));
 		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
 		  var valid = false;
