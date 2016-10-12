@@ -49,9 +49,11 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
+			  var d = new Date();
 			  var log = {
 					  name: snapshot.child('todo-name').val(),
-					  todo: snapshot.child('todo').val()
+					  todo: snapshot.child('todo').val(),
+					  time: d.getTime()
 			  }
 			  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
 			  if ( doorconfig == false ) {

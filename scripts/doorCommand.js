@@ -18,6 +18,8 @@ var doorref = rootref.child(doorconfig.doorname);
 
 
 // pins definitions
+var myDigitalPin7 = new mraa.Gpio(7);
+myDigitalPin7.dir(mraa.DIR_IN);
 var StepPin = new mraa.Gpio(12); //setup digital pin to make the steps in the stepper motor
 var DirectionPin=new mraa.Gpio(11); //setup digital pin to make direction of the rotation of the stepper motor 1(clockwise) 0 (anti clockwise) 
 StepPin.dir(mraa.DIR_OUT); //set the gpio direction to output
@@ -44,6 +46,9 @@ function PrintDoorStatus(MSG) {
 
 // StepMotor doing the "stepping" to direction "Direction"
 function StepMotor(Direction) {
+	// rely on
+	myDigitalPin7.write(1);
+	
 	// set direction
     if (Direction == "Open") 
     	DirectionPin.write(dirToOpen);
@@ -62,6 +67,9 @@ function StepMotor(Direction) {
 	    if (Direction == "Close" && PotentiometerRead > ThrasholdConsiderdClose)
 	    	break;
     }
+    
+	// rely off
+	myDigitalPin7.write(0);
 }
 
 // MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
