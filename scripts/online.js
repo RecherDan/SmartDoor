@@ -29,49 +29,49 @@ getIP(function (err, ip) {
     eip = ip;
 });
 
+function applyService (port, mode) {
+	  var d = new Date();
+	  var log = {
+			  name: snapshot.child('todo-name').val(),
+			  todo: snapshot.child('todo').val(),
+			  time: d.getTime()
+	  }
+	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
+	  
+	  if ( doorconfig.debug == false ) {
+		  var client = new net.Socket();
+		  client.connect(port, '127.0.0.1', function() {
+		  	console.log('Connected');
+		  	client.write(mode);
+		  });
+
+		  client.on('data', function(data) {
+		  	console.log('Received: ' + data);
+		  	client.destroy(); // kill client after server's response
+		  });
+
+		  client.on('close', function() {
+		  	console.log('Connection closed');
+		  });
+	  }
+}
+
+
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
 		
 	  if (snapshot.child('todo').val() != "null" ) {
 		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
-		  var valid = false;
-		  var port = 6001;
-		  var mode = "";
 		  if ( snapshot.child('todo').val()  == "Lock" ) {
-			  valid = true;
-			  port = 6001;
-			  mode = "Close";
+			  applyService(6001, "Close");
 		  } 
 		  if ( snapshot.child('todo').val()  == "Unlock" ) {
-			  valid = true;
-			  port = 6001;
-			  mode = "Open";
+			  applyService(6001, "Open");
 		  } 
-		  if ( valid ) {
-			  var d = new Date();
-			  var log = {
-					  name: snapshot.child('todo-name').val(),
-					  todo: snapshot.child('todo').val(),
-					  time: d.getTime()
-			  }
-			  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
-			  if ( doorconfig.debug == false ) {
-				  var client = new net.Socket();
-				  client.connect(port, '127.0.0.1', function() {
-				  	console.log('Connected');
-				  	client.write(mode);
-				  });
-	
-				  client.on('data', function(data) {
-				  	console.log('Received: ' + data);
-				  	client.destroy(); // kill client after server's response
-				  });
-	
-				  client.on('close', function() {
-				  	console.log('Connection closed');
-				  });
-			  }
-		  }
+		  if ( snapshot.child('todo').val()  == "Emergency" ) {
+			  applyService(6001, "Open");
+			  applyService(6003, "");
+		  } 
 	  }
 		  
 	  
