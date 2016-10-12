@@ -30,8 +30,8 @@ getIP(function (err, ip) {
 });
 
 database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
-	  console.log("todo " + snapshot.child('todo').val());
 	  if (snapshot.child('todo').val() != "null" ) {
+		  console.log("todo " + snapshot.child('todo').val());
 		  var valid = false;
 		  var port = 6001;
 		  var mode = "";
