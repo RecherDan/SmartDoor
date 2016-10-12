@@ -46,7 +46,8 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
-			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: }");
+			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: " + snapshot.child('todo-name').val() + " todo: " + snapshot.child('todo').val() + " }");
+			  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
 			  var client = new net.Socket();
 			  client.connect(port, '127.0.0.1', function() {
 			  	console.log('Connected');
@@ -64,7 +65,7 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  }
 	  }
 		  
-	  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
+	  
 	  
 	});
 
