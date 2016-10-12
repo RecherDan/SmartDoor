@@ -29,23 +29,24 @@ getIP(function (err, ip) {
     eip = ip;
 });
 
-database.ref().child('doors').child(doorconfig.doorname).child('todo').on("value", function(snapshot) {
+database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
 	  console.log("todo " + snapshot.val());
-	  if (snapshot.val() != "null" ) {
+	  if (snapshot.child('todo').val() != "null" ) {
 		  var valid = false;
 		  var port = 6001;
 		  var mode = "";
-		  if ( snapshot.val()  == "Lock" ) {
+		  if ( snapshot.child('todo').val()  == "Lock" ) {
 			  valid = true;
 			  port = 6001;
 			  mode = "Close";
 		  } 
-		  if ( snapshot.val()  == "Unlock" ) {
+		  if ( snapshot.child('todo').val()  == "Unlock" ) {
 			  valid = true;
 			  port = 6001;
 			  mode = "Open";
 		  } 
 		  if ( valid ) {
+			  database.ref().child('doors').child(doorconfig.doorname).child('log').push("{name: }");
 			  var client = new net.Socket();
 			  client.connect(port, '127.0.0.1', function() {
 			  	console.log('Connected');
