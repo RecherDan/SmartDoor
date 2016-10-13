@@ -48,14 +48,14 @@ setInterval(function() {
 		var notification = {
 				title: "Someone recorded a message",
 			       	msg: results,
-				popup: true	
+				popup: "true"	
 			}	
 				doorref.child('notification').set(notification);
 	    var stop = new Date().getTime();
 		while(new Date().getTime() < stop + 10000) {
 			;
 		}
-		notification['popup'] = 'false';
+		notification['popup'] = "false";
 		doorref.child('notification').set(notification);
 	}	
 }, the_interval);
