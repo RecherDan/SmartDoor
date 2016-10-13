@@ -51,8 +51,8 @@ setInterval(function() {
 			   console.log('Child Process STDERR: '+stderr);
 			 });
 		var notification = {
-				title: "Someone recorded a message",
-			       	msg: results,
+				title: "Knock Knock",
+			       	msg: "some one knocked your door!",
 				popup: "true"	
 			}	
 				doorref.child('notification').set(notification);
