@@ -19,7 +19,7 @@ var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
 
-function startrecord() {
+function startRecord() {
 	var proc = require('child_process').spawn("arecord", ['-t','raw','-r','16000','-f','S16_LE','./test2.raw'] );
 	console.log("start recording");
 	proc.stdout.on('data', (data) => {
@@ -70,7 +70,6 @@ var server = net.createServer(function(socket) {
 
 	 if ( data == "Record" ) {
 			startRecord();
-			socket.write("Door " + motorStatus);
 		}
 		else {
 			socket.write("Error, bad command");
