@@ -36,7 +36,7 @@ setInterval(function() {
 	if ( KnockCount >= 3 ) {
 		KnockCount = 0;
 		console.log("Took Took Took");
-		child = childProcess.exec('node scripts/sendnotification.js "Took took" "someonw knoked your door"', function (error, stdout, stderr) {
+		child = childProcess.exec('node scripts/sendnotification.js "Took took" "someone knoked your door"', function (error, stdout, stderr) {
 			   if (error) {
 			     console.log(error.stack);
 			     console.log('Error code: '+error.code);
@@ -46,8 +46,8 @@ setInterval(function() {
 			   console.log('Child Process STDERR: '+stderr);
 			 });
 		doorref.child('notification').set('true');
-		doorreg.child('notification-title').set("Knock knock!");
-		doorreg.child('notification-msg').set("Hey! some one is knocking!!!");
+		doorref.child('notification-title').set("Knock knock!");
+		doorref.child('notification-msg').set("Hey! some one is knocking!!!");
 	    var stop = new Date().getTime();
 		while(new Date().getTime() < stop + 5000) {
 			;
