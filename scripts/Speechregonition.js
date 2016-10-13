@@ -52,7 +52,7 @@ function startRecord() {
 		}	
 			doorref.child('notification').set(notification);
 		    var stop = new Date().getTime();
-			while(new Date().getTime() < stop + 5000) {
+			while(new Date().getTime() < stop + 10000) {
 				;
 			}
 			notification['popup'] = 'false';

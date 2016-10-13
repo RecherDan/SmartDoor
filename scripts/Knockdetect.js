@@ -45,13 +45,17 @@ setInterval(function() {
 			   console.log('Child Process STDOUT: '+stdout);
 			   console.log('Child Process STDERR: '+stderr);
 			 });
-		doorref.child('notification').set('true');
-		doorref.child('notification-title').set("Knock knock!");
-		doorref.child('notification-msg').set("Hey! some one is knocking!!!");
+		var notification = {
+				title: "Someone recorded a message",
+			       	msg: results,
+				popup: true	
+			}	
+				doorref.child('notification').set(notification);
 	    var stop = new Date().getTime();
-		while(new Date().getTime() < stop + 5000) {
+		while(new Date().getTime() < stop + 10000) {
 			;
 		}
-		doorref.child('notification').set('false');
+		notification['popup'] = 'false';
+		doorref.child('notification').set(notification);
 	}	
 }, the_interval);
