@@ -21,7 +21,8 @@
     "passport": "*",
     "passport-facebook": "*",
     "passport-local": "*",
-    "path": "*"
+    "path": "*",
+    "@google-cloud/speech": "^0.1.1"
   },
   "description": "SmartDoor System",
   "main": "app.js",
