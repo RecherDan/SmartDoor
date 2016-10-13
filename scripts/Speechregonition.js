@@ -2,7 +2,7 @@ var net = require('net'); // require net for open server.
 const fs = require('fs');
 const speech = require('@google-cloud/speech')({
 	  projectId: 'smartdoor-2f29b',
-	  keyFilename: './smartdoor-fbe1a59a4915.json'
+	  keyFilename: '/home/root/smartdoor/scripts/smartdoor-fbe1a59a4915.json'
 	});
 var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
