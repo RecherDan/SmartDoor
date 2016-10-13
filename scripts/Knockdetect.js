@@ -1,4 +1,5 @@
 var mraa = require('mraa'); //require mraa
+var net = require('net'); // require net for open server.
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var analogPin1 = new mraa.Aio(3); //to indecat if the door isclose or not useing a potensiometer
 var childProcess = require('child_process'), child;
@@ -23,6 +24,10 @@ var lastKnock = 0;
 var minThreshold = 100;
 var MaxtimeBetweenKnocks = 3000;
 var MintimeBetweenKnocks = 500;
+
+function connectrecord() {
+
+}
 setInterval(function() {
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
@@ -36,7 +41,7 @@ setInterval(function() {
 	if ( KnockCount >= 3 ) {
 		KnockCount = 0;
 		console.log("Took Took Took");
-		child = childProcess.exec('node scripts/sendnotification.js "Took took" "someone knoked your door"', function (error, stdout, stderr) {
+		child = childProcess.exec('node scripts/sendnotification.js "Took took" "someone knocked your door"', function (error, stdout, stderr) {
 			   if (error) {
 			     console.log(error.stack);
 			     console.log('Error code: '+error.code);
@@ -57,5 +62,21 @@ setInterval(function() {
 		}
 		notification['popup'] = "false";
 		doorref.child('notification').set(notification);
+		
+		var proc = require('child_process').spawn("aplay", ['/home/root/smartdoor/scripts/wellcom_transcript.wav'] );
+		var client = new net.Socket();
+		client.connect(6006, '127.0.0.1', function() {
+			console.log('Connected');
+			client.write("Record");
+		});
+
+		client.on('data', function(data) {
+			console.log('Received: ' + data);
+			client.destroy(); // kill client after server's response
+		});
+
+		client.on('close', function() {
+			console.log('Connection closed');
+		});
 	}	
 }, the_interval);
