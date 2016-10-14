@@ -1,5 +1,8 @@
 var minutes = 0.5, the_interval = minutes * 60 * 1000;
 var SerialPort = require('serialport');
+var receivedpong = 0;
+var failcount = 0; 
+
 var port = new SerialPort('/dev/rfcomm0');
 	port.on('open', function() {
 			console.log("connected");
@@ -11,8 +14,17 @@ var port = new SerialPort('/dev/rfcomm0');
 	})	
 	port.on('data', function(data) {
 		console.log('bt recived:' + data);
+		if ( data == "3" ) {
+			receivedpong = 1;
+			failcount = 0;
+		}
 	});
 
 setInterval(function() {
-	port.write("1");
+	if ( receivedpong == 0 ) failcount++;
+	if ( failcount == 3 ) {
+		console.log("3 times error");
+	}
+	port.write("2");
+	receivedpong = 0;
 }, the_interval);
