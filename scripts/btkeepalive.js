@@ -15,9 +15,11 @@ function waitnsec(nsec) {
 		;
 	}
 }
-
+var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
+waitnsec(10);
 
 var port = new SerialPort('/dev/rfcomm0');
+
 	port.on('open', function() {
 			console.log("connected");
 	});
@@ -26,8 +28,7 @@ var port = new SerialPort('/dev/rfcomm0');
 	port.on('error', function(err) {
 	  var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
 	  console.log('Error: ', err.message);
-	  waitnsec(3);
-	  port = new SerialPort('/dev/rfcomm0');
+	  waitnsec(10);
 	})	
 	port.on('data', function(data) {
 		console.log('bt recived:' + data);
@@ -62,8 +63,7 @@ setInterval(function() {
 		proc.stdout.on('error', (data) => {
 			  console.log(`stdout err: ${data}`);
 		});
-		waitnsec(3);
-		port = new SerialPort('/dev/rfcomm0');
+		waitnsec(10);
 		failcount = -1000;
 		btwaitfailcount = -1000;
 	}
