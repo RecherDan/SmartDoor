@@ -35,7 +35,10 @@ var port = new SerialPort('/dev/rfcomm0');
 
 setInterval(function() {
 	if ( receivedpong == 0 ) failcount++;
-	if ( btwait ) btwaitfailcount++;
+	if ( btwait ) {
+		btwaitfailcount++;
+		port.write(btdata);
+	}
 	if ( failcount == 3 || btwaitfailcount == 3 ) {
 		console.log("3 times error doing recovery");
 		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
