@@ -22,7 +22,8 @@
     "passport-facebook": "*",
     "passport-local": "*",
     "path": "*",
-    "@google-cloud/speech": "^0.1.1"
+    "@google-cloud/speech": "^0.1.1",
+    "serialport": "*"
   },
   "description": "SmartDoor System",
   "main": "app.js",
