@@ -28,7 +28,7 @@ var port = new SerialPort('/dev/rfcomm0');
 				btwaitfailcount = 0;
 				btwait=false;
 				console.log("received Alarm status btwait=false and data is: " + data);
-				socketwrite.write("Alarm is now " + (data == "0" ) ? "Off" : "On");
+				socketwrite.write((data == "0" ) ? "Off" : "On");
 			}
 		}
 
