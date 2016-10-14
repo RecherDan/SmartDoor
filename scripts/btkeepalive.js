@@ -64,9 +64,9 @@ setInterval(function() {
 		btwaitfailcount = -1000;
 	}
 	if ( receivedpong == 1 ) {
-		port.write("2");
 		receivedpong = 0;
 	}
+	port.write("2");
 }, the_interval);
 
 var server = net.createServer(function(socket) {
