@@ -45,6 +45,8 @@ setInterval(function() {
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery");
 		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
+		failcount = -1000;
+		btwaitfailcount = -1000;
 	}
 	if ( receivedpong == 1 ) {
 		port.write("2");
