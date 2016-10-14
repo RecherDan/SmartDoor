@@ -7,6 +7,7 @@ if ( device == "DoorStatus" ) port = 6002;
 if ( device == "Alarm" ) port = 6003;
 if ( device == "Smoke" ) port = 6004;
 if ( device == "record" ) port = 6006;
+if ( device == "bt" ) port = 6007;
 
 
 var client = new net.Socket();
