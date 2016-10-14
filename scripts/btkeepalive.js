@@ -26,6 +26,7 @@ var port = new SerialPort('/dev/rfcomm0');
 	 
 	// open errors will be emitted as an error event 
 	port.on('error', function(err) {
+	  var procc = require('child_process'.exec("sudo /bin/systemctl restart btkeeponline.service");
 	  var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
 	  console.log('Error: ', err.message);
 	  waitnsec(10);
@@ -59,7 +60,7 @@ setInterval(function() {
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery failcount: " + failcount + " btwaitcount: " + btwaitfailcount);
-		proccess.kill(0);
+		var procc = require('child_process'.exec("sudo /bin/systemctl restart btkeeponline.service");
 		var proc = require('child_process').exec("sudo bash /home/root/bt/startbt.sh");
 		proc.stdout.on('data', (data) => {
 			  console.log(`stdout: ${data}`);
