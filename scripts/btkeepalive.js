@@ -3,7 +3,10 @@ var SerialPort = require('serialport');
 var receivedpong = 0;
 var failcount = 0; 
 var net = require('net'); // require net for open server.
-var btrecived="";
+var btdata="";
+var btwait=false;
+var btwaitfailcount=0;
+var socketwrite = "";
 
 var port = new SerialPort('/dev/rfcomm0');
 	port.on('open', function() {
@@ -20,15 +23,20 @@ var port = new SerialPort('/dev/rfcomm0');
 			receivedpong = 1;
 			failcount = 0;
 		}
-		if ( data == "1")
-			btrecived = "1";
-		if ( data == "0") 
-			btrecived = "0";
+		if ( data == "1" || data =="0") {
+			if (btwait && (data == btdata)) {
+				btwaitfailcount = 0;
+				btwait=false;
+				socketwrite.write("Alarm is now " + (data == "0" ) ? "Off" : "On");
+			}
+		}
+
 	});
 
 setInterval(function() {
 	if ( receivedpong == 0 ) failcount++;
-	if ( failcount == 3 ) {
+	if ( btwait ) btwaitfailcount++;
+	if ( failcount == 3 || btwaitfailcount == 3 ) {
 		console.log("3 times error doing recovery");
 		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 	}
@@ -40,12 +48,14 @@ var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
 		if ( data == "On" || data == "Off") {
-			btrecived = "";
+			btdata = data;
+			btwait = true;
 			if ( data == "On")
 				port.write("1");
 			else
 				port.write("0");
-			//socket.write("Alarm is now " + (btrecived == "0" ) ? "Off" : "On");
+			socketwrite = socket;
+			//socketwrite.write("Alarm is now " + (btrecived == "0" ) ? "Off" : "On");
 		}
 		else {
 			socket.write("Error, bad command");

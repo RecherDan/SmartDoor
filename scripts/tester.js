@@ -14,7 +14,7 @@ var client = new net.Socket();
 client.connect(port, '127.0.0.1', function() {
 	console.log('Connected');
 	client.write(mode);
-	if ( device == "bt") client.destroy();
+	//if ( device == "bt") client.destroy();
 });
 
 client.on('data', function(data) {
