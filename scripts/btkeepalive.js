@@ -17,7 +17,13 @@ function waitnsec(nsec) {
 }
 function startagain() {
 	 var child = require('child_process')
-	 child.exec("/bin/kill -9 `ps | grep btkeepalive | head -n1 | awk '{print $1}'`");
+	 var proc = child.exec("/bin/kill -9 `ps | grep btkeepalive | head -n1 | awk '{print $1}'`");
+	 proc.stdout.on('data', (data) => {
+		  console.log(`stdout: ${data}`);
+	});
+	proc.stdout.on('error', (data) => {
+		  console.log(`stdout err: ${data}`);
+	});
 }
 
 var port = new SerialPort('/dev/rfcomm0');
