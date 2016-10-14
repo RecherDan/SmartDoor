@@ -16,7 +16,7 @@ function waitnsec(nsec) {
 	}
 }
 var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
-waitnsec(10);
+waitnsec(15);
 
 var port = new SerialPort('/dev/rfcomm0');
 
