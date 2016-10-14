@@ -53,7 +53,7 @@ var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
 		if ( data == "On" || data == "Off") {
-			btdata = data;
+			btdata = (data == "On" ) ? "1" : "0";
 			btwait = true;
 			if ( data == "On")
 				port.write("1");
