@@ -15,6 +15,7 @@ var port = new SerialPort('/dev/rfcomm0');
 	 
 	// open errors will be emitted as an error event 
 	port.on('error', function(err) {
+	  var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 	  console.log('Error: ', err.message);
 	})	
 	port.on('data', function(data) {
