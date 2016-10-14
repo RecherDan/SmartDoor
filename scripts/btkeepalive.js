@@ -2,7 +2,7 @@ var minutes = 0.5, the_interval = minutes * 60 * 1000;
 var SerialPort = require('serialport');
 var port = new SerialPort('/dev/rfcomm0');
 	port.on('open', function() {
-			onsole.log("connected");
+			console.log("connected");
 	});
 	 
 	// open errors will be emitted as an error event 
