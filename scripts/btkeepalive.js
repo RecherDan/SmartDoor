@@ -52,7 +52,7 @@ setInterval(function() {
 		console.log("fail to receive alram status send again");
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
-		console.log("3 times error doing recovery");
+		console.log("3 times error doing recovery failcount: " + failcount + " btwaitcount: " + btwaitfailcount);
 		var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
 		proc.stdout.on('data', (data) => {
 			  console.log(`stdout: ${data}`);
