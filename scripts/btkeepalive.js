@@ -17,7 +17,7 @@ function waitnsec(nsec) {
 }
 function startagain() {
 	 var child = require('child_process')
-	 child.exec("/bin/kill -9 `ps | grep "btkeepalive" | head -n1 | awk '{print $1}'`");
+	 child.exec("/bin/kill -9 `ps | grep btkeepalive | head -n1 | awk '{print $1}'`");
 }
 
 var port = new SerialPort('/dev/rfcomm0');
