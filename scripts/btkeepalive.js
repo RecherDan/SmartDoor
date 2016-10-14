@@ -18,7 +18,7 @@ var port = new SerialPort('/dev/rfcomm0');
 	  console.log('Error: ', err.message);
 	})	
 	port.on('data', function(data) {
-		console.log('bt recived:' + data);
+		//console.log('bt recived:' + data);
 		if ( data == "3" ) {
 			receivedpong = 1;
 			failcount = 0;
