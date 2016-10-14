@@ -48,7 +48,10 @@ var port = new SerialPort('/dev/rfcomm0');
 	});
 
 setInterval(function() {
-	if ( receivedpong == 0 ) failcount++;
+	if ( receivedpong == 0 ) {
+		failcount++;
+		console.log("fail: " + failcount);
+	}
 	if ( btwait ) {
 		btwaitfailcount++;
 		port.write(btdata);
@@ -56,6 +59,7 @@ setInterval(function() {
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery failcount: " + failcount + " btwaitcount: " + btwaitfailcount);
+		proccess.kill(0);
 		var proc = require('child_process').exec("sudo bash /home/root/bt/startbt.sh");
 		proc.stdout.on('data', (data) => {
 			  console.log(`stdout: ${data}`);
