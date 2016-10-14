@@ -26,10 +26,10 @@ var port = new SerialPort('/dev/rfcomm0');
 	 
 	// open errors will be emitted as an error event 
 	port.on('error', function(err) {
-	  var procc = require('child_process').exec("sudo /bin/systemctl restart btkeeponline.service");
-	  var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
+	  //var procc = require('child_process').exec("sudo /bin/systemctl restart btkeeponline.service");
+	  //var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
 	  console.log('Error: ', err.message);
-	  waitnsec(10);
+	  //waitnsec(10);
 	})	
 	port.on('data', function(data) {
 		console.log('bt recived:' + data);
