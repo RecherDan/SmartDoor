@@ -39,7 +39,7 @@ setInterval(function() {
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
-		if ( data == "On" || data == "Cff") {
+		if ( data == "On" || data == "Off") {
 			btrecived = "";
 			if ( data == "On")
 				port.write("1");
