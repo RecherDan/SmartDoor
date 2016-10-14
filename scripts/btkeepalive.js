@@ -27,6 +27,7 @@ var port = new SerialPort('/dev/rfcomm0');
 			if (btwait && (data == btdata)) {
 				btwaitfailcount = 0;
 				btwait=false;
+				console.log("received Alarm status btwait=false");
 				socketwrite.write("Alarm is now " + (data == "0" ) ? "Off" : "On");
 			}
 		}
@@ -38,6 +39,7 @@ setInterval(function() {
 	if ( btwait ) {
 		btwaitfailcount++;
 		port.write(btdata);
+		console.log("fail to receive alram status send again");
 	}
 	if ( failcount == 3 || btwaitfailcount == 3 ) {
 		console.log("3 times error doing recovery");
