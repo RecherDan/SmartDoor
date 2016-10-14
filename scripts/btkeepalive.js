@@ -46,6 +46,12 @@ setInterval(function() {
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery");
 		var proc = require('child_process').exec("/home/root/bt/startbt.sh");
+		proc.stdout.on('data', (data) => {
+			  console.log(`stdout: ${data}`);
+		});
+		proc.stdout.on('error', (data) => {
+			  console.log(`stdout err: ${data}`);
+		});
 		failcount = -1000;
 		btwaitfailcount = -1000;
 	}
