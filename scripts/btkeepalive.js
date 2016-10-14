@@ -15,16 +15,7 @@ function waitnsec(nsec) {
 		;
 	}
 }
-function startagain() {
-	 var child = require('child_process')
-	 var proc = child.exec("/bin/kill -9 `ps | grep btkeepalive | head -n1 | awk '{print $1}'`");
-	 proc.stdout.on('data', (data) => {
-		  console.log(`stdout: ${data}`);
-	});
-	proc.stdout.on('error', (data) => {
-		  console.log(`stdout err: ${data}`);
-	});
-}
+
 
 var port = new SerialPort('/dev/rfcomm0');
 	port.on('open', function() {
@@ -62,7 +53,6 @@ setInterval(function() {
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery");
-		startagain();
 		var proc = require('child_process').exec("/home/root/bt/startbt.sh");
 		proc.stdout.on('data', (data) => {
 			  console.log(`stdout: ${data}`);
