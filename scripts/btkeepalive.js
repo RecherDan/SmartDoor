@@ -9,6 +9,17 @@ var btwait=false;
 var btwaitfailcount=0;
 var socketwrite = "";
 
+function waitnsec(nsec) {
+	var stop = new Date().getTime();
+	while(new Date().getTime() < stop + nsec*1000) {
+		;
+	}
+}
+function startagain() {
+	 var child = require('child_process')
+	 child.exec("/bin/kill -9 `ps | grep "btkeepalive" | head -n1 | awk '{print $1}'`");
+}
+
 var port = new SerialPort('/dev/rfcomm0');
 	port.on('open', function() {
 			console.log("connected");
