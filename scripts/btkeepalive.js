@@ -1,10 +1,3 @@
-var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
-
-stop = new Date().getTime();
-while(new Date().getTime() < stop + 5000) {
-	;
-}
-
 var minutes = 0.1, the_interval = minutes * 60 * 1000;
 var SerialPort = require('serialport');
 var receivedpong = 0;
@@ -22,10 +15,8 @@ var port = new SerialPort('/dev/rfcomm0');
 	 
 	// open errors will be emitted as an error event 
 	port.on('error', function(err) {
-	  //var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
-		
+	  var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 	  console.log('Error: ', err.message);
-	  proccess.exit(1);
 	})	
 	port.on('data', function(data) {
 		//console.log('bt recived:' + data);
@@ -53,8 +44,7 @@ setInterval(function() {
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery");
-		//var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
-		proccess.exit(1);
+		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 		failcount = -1000;
 		btwaitfailcount = -1000;
 	}
