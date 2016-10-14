@@ -53,7 +53,7 @@ setInterval(function() {
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery failcount: " + failcount + " btwaitcount: " + btwaitfailcount);
-		var proc = require('child_process').exec("bash -x /home/root/bt/startbt.sh");
+		var proc = require('child_process').exec("sudo bash /home/root/bt/startbt.sh");
 		proc.stdout.on('data', (data) => {
 			  console.log(`stdout: ${data}`);
 		});
