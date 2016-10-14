@@ -1,4 +1,4 @@
-var minutes = 0.01, the_interval = minutes * 60 * 1000;
+var minutes = 0.1, the_interval = minutes * 60 * 1000;
 var SerialPort = require('serialport');
 var receivedpong = 0;
 var failcount = 0; 
@@ -23,7 +23,8 @@ var port = new SerialPort('/dev/rfcomm0');
 setInterval(function() {
 	if ( receivedpong == 0 ) failcount++;
 	if ( failcount == 3 ) {
-		console.log("3 times error");
+		console.log("3 times error doing recovery");
+		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 	}
 	port.write("2");
 	receivedpong = 0;
