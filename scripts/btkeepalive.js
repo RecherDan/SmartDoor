@@ -45,9 +45,7 @@ var server = net.createServer(function(socket) {
 				port.write("1");
 			else
 				port.write("0");
-			while ( btrecived == "")
-				;
-			socket.write("Alarm is now " + (btrecived == "0" ) ? "Off" : "On");
+			//socket.write("Alarm is now " + (btrecived == "0" ) ? "Off" : "On");
 		}
 		else {
 			socket.write("Error, bad command");
