@@ -1,4 +1,4 @@
-var minutes = 0.5, the_interval = minutes * 60 * 1000;
+var minutes = 0.01, the_interval = minutes * 60 * 1000;
 var SerialPort = require('serialport');
 var receivedpong = 0;
 var failcount = 0; 
