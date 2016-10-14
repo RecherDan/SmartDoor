@@ -42,12 +42,14 @@ setInterval(function() {
 		port.write(btdata);
 		console.log("fail to receive alram status send again");
 	}
-	if ( failcount == 3 || btwaitfailcount == 3 ) {
+	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
 		console.log("3 times error doing recovery");
 		var proc = require('child_process').spawn("/home/root/bt/startbt.sh");
 	}
-	port.write("2");
-	receivedpong = 0;
+	if ( receivedpong == 1 ) {
+		port.write("2");
+		receivedpong = 0;
+	}
 }, the_interval);
 
 var server = net.createServer(function(socket) {
