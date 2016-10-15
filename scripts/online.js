@@ -30,7 +30,7 @@ getIP(function (err, ip) {
 });
 function getlanip() {
 	
-	var proc = require('child_process').spawn("/sbin/ifconfig | /usr/bin/awk '/wlan0/{getline; print}' | /usr/bin/cut -d\":\" -f2 | /usr/bin/cut -d\" \" -f1");
+	var proc = require('child_process').spawn("/home/root/smartdoor/scripts/getlanip.sh");
 	console.log("lan ip");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
@@ -103,7 +103,7 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 	  
 	});
 
-getlanip();
+
 
 setInterval(function() {
   //console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
