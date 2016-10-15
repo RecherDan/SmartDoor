@@ -113,13 +113,13 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 					       	msg: "Some one apply the emegency mode!",
 						popup: "true"	
 					}	
-						doorref.child('notification').set(notification);
+				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
 			    var stop = new Date().getTime();
 				while(new Date().getTime() < stop + 10000) {
 					;
 				}
 				notification['popup'] = "false";
-				doorref.child('notification').set(notification);
+				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
 		  } 
 	  }
 		  
