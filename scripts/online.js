@@ -28,7 +28,14 @@ getIP(function (err, ip) {
     }
     eip = ip;
 });
-
+function getlanip() {
+	
+	var proc = require('child_process').spawn("/sbin/ifconfig | /usr/bin/awk '/wlan0/{getline; print}' | /usr/bin/cut -d":" -f2 | /usr/bin/cut -d" " -f1");
+	console.log("lan ip");
+	proc.stdout.on('data', (data) => {
+		  console.log(`stdout: ${data}`);
+	});
+}
 function storeLog(name, todo) {
 	  var d = new Date();
 	  var log = {
@@ -94,6 +101,8 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 	  
 	  
 	});
+
+getlanip();
 
 setInterval(function() {
   //console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
