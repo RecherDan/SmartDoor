@@ -30,7 +30,7 @@ getIP(function (err, ip) {
 });
 function getlanip() {
 	
-	var proc = require('child_process').spawn("/home/root/smartdoor/scripts/getlanip.sh");
+	var proc = require('child_process').spawn("/home/root/scripts/getlanip.sh");
 	console.log("lan ip");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
