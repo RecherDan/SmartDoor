@@ -19,6 +19,7 @@ var smokedet = "clean";
 var lastevent = "13:20";
 var alarm = "off";
 var eip = "";
+var emergencycount =0;
 
 console.log("start updating online status");
 getIP(function (err, ip) {
@@ -48,7 +49,7 @@ function storeLog(name, todo) {
 	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
 }
 function applyService (port, mode, emergency) {
-	  
+	emergencycount = 0;
 	  if ( doorconfig.debug == false ) {
 		  var client = new net.Socket();
 		  client.connect(port, '127.0.0.1', function() {
@@ -66,7 +67,7 @@ function applyService (port, mode, emergency) {
 		  });
 		  client.on('error', function(e) {
 			  console.log('Error');
-			  if ( emergency == true ) {
+			  if ( emergency == true && emergencycount < 3 ) {
 			        client.setTimeout(4000, function() {
 			            client.connect(port, '127.0.0.1', function(){
 			    		  	console.log('Connected');
@@ -120,6 +121,7 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 				}
 				notification['popup'] = "false";
 				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+				applyService(6007, "Off", true);
 		  } 
 	  }
 		  
