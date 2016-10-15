@@ -34,7 +34,7 @@ function getlanip() {
 	console.log("lan ip");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
-		  database.ref().child('doors').child(doorconfig.doorname).child('lanip').push(data);
+		  database.ref().child('doors').child(doorconfig.doorname).child('lanip').push(${data});
 	});
 }
 getlanip();
