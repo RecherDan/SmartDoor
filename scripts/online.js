@@ -30,12 +30,13 @@ getIP(function (err, ip) {
 });
 function getlanip() {
 	
-	var proc = require('child_process').spawn("/sbin/ifconfig | /usr/bin/awk '/wlan0/{getline; print}' | /usr/bin/cut -d":" -f2 | /usr/bin/cut -d" " -f1");
+	var proc = require('child_process').spawn("/sbin/ifconfig | /usr/bin/awk '/wlan0/{getline; print}' | /usr/bin/cut -d\":\" -f2 | /usr/bin/cut -d\" \" -f1");
 	console.log("lan ip");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
 	});
 }
+getlanip();
 function storeLog(name, todo) {
 	  var d = new Date();
 	  var log = {
