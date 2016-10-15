@@ -3,7 +3,7 @@ var net = require('net'); // require net for open server.
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var analogPin1 = new mraa.Aio(3); //to indecat if the door isclose or not useing a potensiometer
 var childProcess = require('child_process'), child;
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -41,7 +41,7 @@ setInterval(function() {
 	if ( KnockCount >= 3 ) {
 		KnockCount = 0;
 		console.log("Took Took Took");
-		child = childProcess.exec('node scripts/sendnotification.js "Took took" "someone knocked your door"', function (error, stdout, stderr) {
+		child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Took took" "someone knocked your door"', function (error, stdout, stderr) {
 			   if (error) {
 			     console.log(error.stack);
 			     console.log('Error code: '+error.code);

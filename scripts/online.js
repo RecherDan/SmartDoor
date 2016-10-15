@@ -1,7 +1,7 @@
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
 var net = require('net');
-
+var childProcess = require('child_process'), child;
 var doorconfig = require('./config'); // door configuration
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
@@ -95,8 +95,31 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  } 
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
+			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("On");
 			  applyService(6001, "Open", true);
-			  applyService(6003, "", true);
+			  applyService(6007, "On", true);
+			  // send notification to android devices
+			  child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Emergency!!!" "Some one apply the emegency mode!"', function (error, stdout, stderr) {
+				   if (error) {
+				     console.log(error.stack);
+				     console.log('Error code: '+error.code);
+				     console.log('Signal received: '+error.signal);
+				   }
+				   console.log('Child Process STDOUT: '+stdout);
+				   console.log('Child Process STDERR: '+stderr);
+				 });
+				var notification = {
+						title: "Emergency!!!",
+					       	msg: "Some one apply the emegency mode!",
+						popup: "true"	
+					}	
+						doorref.child('notification').set(notification);
+			    var stop = new Date().getTime();
+				while(new Date().getTime() < stop + 10000) {
+					;
+				}
+				notification['popup'] = "false";
+				doorref.child('notification').set(notification);
 		  } 
 	  }
 		  
