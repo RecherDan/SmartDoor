@@ -45,19 +45,36 @@ function startRecord() {
 	      return;
 	    }
 	    console.log('Results:', results);
-		var notification = {
-			title: "Someone recorded a message",
-		       	msg: results,
-			popup: "true"	
-		}	
-			doorref.child('notification').set(notification);
-		    var stop = new Date().getTime();
-			while(new Date().getTime() < stop + 10000) {
-				;
-			}
-			notification['popup'] = "false";
-			doorref.child('notification').set(notification);
-			 return;
+	    if ( results.toUpperCase() == "OPEN SESAME") {
+			var client = new net.Socket();
+			client.connect(6001, '127.0.0.1', function() {
+				console.log('Connected');
+				client.write("Open");
+			});
+
+			client.on('data', function(data) {
+				console.log('Received: ' + data);
+				client.destroy(); // kill client after server's response
+			});
+
+			client.on('close', function() {
+				console.log('Connection closed');
+			});
+	    	return;
+	    }
+			var notification = {
+				title: "Someone recorded a message",
+			       	msg: results,
+				popup: "true"	
+			}	
+				doorref.child('notification').set(notification);
+			    var stop = new Date().getTime();
+				while(new Date().getTime() < stop + 10000) {
+					;
+				}
+				notification['popup'] = "false";
+				doorref.child('notification').set(notification);
+				 return;
 	  });
 	  
 	
