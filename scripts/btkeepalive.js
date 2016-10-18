@@ -4,6 +4,20 @@ var receivedpong = 0;
 var failcount = 0; 
 var net = require('net'); // require net for open server.
 fs = require('fs');
+var Firebase = require("firebase");
+var config = {
+	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
+	    authDomain: "smartdoor-2f29b.firebaseapp.com",
+	    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
+	    storageBucket: "",
+	    messagingSenderId: "693048105512"
+	  };
+var doorconfig = require('./config'); // door configuration
+Firebase.initializeApp(config);
+var database = Firebase.database();
+var rootref = database.ref().child('doors');
+var doorref = rootref.child(doorconfig.doorname);
+
 var btdata="";
 var btwait=false;
 var btwaitfailcount=0;
@@ -39,6 +53,7 @@ var port = new SerialPort('/dev/rfcomm0');
 		}
 		if ( data == "1" || data =="0") {
 			if (btwait && (data == btdata)) {
+				doorref.child('alarm').set((data == "0" ) ? "Off" : "On");
 				btwaitfailcount = 0;
 				btwait=false;
 				console.log("received Alarm status btwait=false and data is: " + data);
