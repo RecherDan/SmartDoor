@@ -24,8 +24,8 @@ var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 //MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
 function MotorStatus() {
 	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead < doorconfig.ThrasholdConsiderdOpen ) return "Open";
-	else if ( PotentiometerRead > doorconfig.ThrasholdConsiderdClose ) return "Close";
+	if ( PotentiometerRead > doorconfig.ThrasholdConsiderdOpen-50 ) return "Open";
+	else if ( PotentiometerRead < doorconfig.ThrasholdConsiderdClose+50 ) return "Close";
 	return "Middle";
 }
 
