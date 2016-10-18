@@ -1,8 +1,10 @@
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
+var mraa = require('mraa'); //require mraa
 var net = require('net');
 var childProcess = require('child_process'), child;
 var doorconfig = require('./config'); // door configuration
+var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
 var config = {
@@ -20,6 +22,14 @@ var lastevent = "13:20";
 var alarm = "off";
 var eip = "";
 var emergencycount =0;
+
+//MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
+function MotorStatus() {
+	var PotentiometerRead = PotentiometerStatus.read();
+	if ( PotentiometerRead < doorconfig.ThrasholdConsiderdOpen ) return "Open";
+	else if ( PotentiometerRead > doorconfig.ThrasholdConsiderdClose ) return "Close";
+	return "Middle";
+}
 
 console.log("start updating online status");
 getIP(function (err, ip) {
@@ -139,6 +149,7 @@ setInterval(function() {
   //exec tester.js to receive door information
   doorref.child('ip').set(eip);
   doorref.child('time').set(d.getTime());
+  doorref.child('doorcurrentstatus').set(MotorStatus());
   //doorref.set({ip: eip,
 	//  time: d.getTime(),
 	  //doorstatus: doorstatus,

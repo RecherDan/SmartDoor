@@ -28,8 +28,8 @@ var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 
 
 // global definitions
-var ThrasholdConsiderdOpen= 100 // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
-var ThrasholdConsiderdClose= 900 // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
+var ThrasholdConsiderdOpen= doorconfig.ThrasholdConsiderdOpen; // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
+var ThrasholdConsiderdClose= doorconfig.ThrasholdConsiderdClose; // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
 var maxStepsToOpen = 7000; // how many maximum!!!!! steps to open or close the door the motore sould do
 var dirToOpen =1;// set the dirction of side the motor will spin
 var dirToClose =0;// the same ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -5,8 +5,7 @@ var doorconfig = require('./config'); // door configuration
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
-var ThrasholdConsiderdOpen= 100 // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
-var ThrasholdConsiderdClose= 900 // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
+
 
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -25,8 +24,8 @@ var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 //MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
 function MotorStatus() {
 	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead < ThrasholdConsiderdOpen ) return "Open";
-	else if ( PotentiometerRead > ThrasholdConsiderdClose ) return "Close";
+	if ( PotentiometerRead < doorconfig.ThrasholdConsiderdOpen ) return "Open";
+	else if ( PotentiometerRead > doorconfig.ThrasholdConsiderdClose ) return "Close";
 	return "Middle";
 }
 
