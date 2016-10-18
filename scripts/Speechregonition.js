@@ -21,7 +21,7 @@ var doorref = rootref.child(doorconfig.doorname);
 
 function startRecord() {
 	var proc = require('child_process').spawn("arecord", ['-t','raw','-r','16000','-f','S16_LE','./test2.raw'] );
-	console.log("start recording");
+	console.log("start recording2");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
 	});
