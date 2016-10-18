@@ -84,6 +84,7 @@ function startRecord() {
 
 //open socket server and wait to commands.
 var server = net.createServer(function(socket) {
+	console.log("Speech Recognition server is on");
 	socket.setKeepAlive(true,60000);
 	socket.on('data', function(data) {
 
