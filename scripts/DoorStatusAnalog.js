@@ -14,8 +14,7 @@ Firebase.initializeApp(config);
 var database = Firebase.database();
 
 //pins definitions
-var analogPin0 = new mraa.Aio(0); //to indecat if the door isclose or not useing a potensiometer
-var analogValue = analogPin0.read(); //read the value of the analog pin
+var PotentiometerStatus = new mraa.Aio(0); //to indecat if the door isclose or not useing a potensiometer
 var minutes = 0.1, the_interval = minutes * 60 * 1000;
 
 //MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"

@@ -1,6 +1,6 @@
 //var mraa = require('mraa'); //require mraa
 //var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
-var analogValue = analogPin0.read(); //read the value of the analog pin
+//var analogValue = analogPin0.read(); //read the value of the analog pin
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
 var net = require('net');
