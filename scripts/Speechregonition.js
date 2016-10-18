@@ -45,7 +45,9 @@ function startRecord() {
 	      return;
 	    }
 	    console.log('Results:', results);
+	    console.log('Upper case:', results.toUpperCase());
 	    if ( results.toUpperCase() == "OPEN SESAME") {
+	    	console.log("Open the door");
 			var client = new net.Socket();
 			client.connect(6001, '127.0.0.1', function() {
 				console.log('Connected');
