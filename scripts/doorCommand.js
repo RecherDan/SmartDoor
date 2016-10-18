@@ -79,6 +79,12 @@ function MotorStatus() {
 	else if ( PotentiometerRead < ThrasholdConsiderdClose ) return "Close";
 	return "Middle";
 }
+function PrintMotorStatus() {
+	var PotentiometerRead = PotentiometerStatus.read();
+	if ( PotentiometerRead > ThrasholdConsiderdOpen-50 ) return "Open";
+	else if ( PotentiometerRead < ThrasholdConsiderdClose+50 ) return "Close";
+	return "Middle";
+}
 
 // DoorCom receives "Open" or "Close" and then controlling the stepper to open or close.
 function doorCom(command) {
@@ -140,7 +146,7 @@ var server = net.createServer(function(socket) {
 			// motor is in use don't allow others to do operation!
 			inOperation = 1;
 			doorCom(data);
-			var motorStatus = MotorStatus();
+			var motorStatus = PrintMotorStatus();
 			doorref.child('doorstatus').set(motorStatus);
 			sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
 			doorref.child('doorneedtobe').set(motorStatus);
