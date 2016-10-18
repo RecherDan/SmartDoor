@@ -5,7 +5,7 @@ var doorconfig = require('./config'); // door configuration
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
-
+var AlretCount = 0;
 
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -35,34 +35,40 @@ setInterval(function() {
 			if ( MotorStatus() != snap.val() ) {
 				console.log("Possible to be thief");
 				if ( snap.val() == "Close" ) {
-					console.log("ok lets send notifications");
-					var notification = {
-							title: "Thief Alert",
-						       	msg: "someone is opening your lock manually!",
-							popup: "true"	
-						}	
-					child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
-						   if (error) {
-						     console.log(error.stack);
-						     console.log('Error code: '+error.code);
-						     console.log('Signal received: '+error.signal);
-						   }
-						   console.log('Child Process STDOUT: '+stdout);
-						   console.log('Child Process STDERR: '+stderr);
-						 });
-
-							doorref.child('notification').set(notification);
-				    var stop = new Date().getTime();
-					while(new Date().getTime() < stop + 10000) {
-						;
-					}
-					notification['popup'] = "false";
-					doorref.child('notification').set(notification);
-				    var stop = new Date().getTime();
-					while(new Date().getTime() < stop + 60000) {
-						;
+					AlretCount++;
+					if (AlretCount >= 3 ) {
+						console.log("ok lets send notifications");
+						var notification = {
+								title: "Thief Alert",
+							       	msg: "someone is opening your lock manually!",
+								popup: "true"	
+							}	
+						child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
+							   if (error) {
+							     console.log(error.stack);
+							     console.log('Error code: '+error.code);
+							     console.log('Signal received: '+error.signal);
+							   }
+							   console.log('Child Process STDOUT: '+stdout);
+							   console.log('Child Process STDERR: '+stderr);
+							 });
+	
+								doorref.child('notification').set(notification);
+					    var stop = new Date().getTime();
+						while(new Date().getTime() < stop + 10000) {
+							;
+						}
+						notification['popup'] = "false";
+						doorref.child('notification').set(notification);
+					    var stop = new Date().getTime();
+						while(new Date().getTime() < stop + 60000) {
+							;
+						}
 					}
 				}
+			}
+			else {
+				AlretCount=0;
 			}
 		}
 	    );
