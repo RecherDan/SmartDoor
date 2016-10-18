@@ -15,7 +15,7 @@ var database = Firebase.database();
 
 //pins definitions
 var PotentiometerStatus = new mraa.Aio(0); //to indecat if the door isclose or not useing a potensiometer
-var minutes = 0.1, the_interval = minutes * 60 * 1000;
+var minutes = 0.01, the_interval = minutes * 60 * 1000;
 
 //MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
 function MotorStatus() {
