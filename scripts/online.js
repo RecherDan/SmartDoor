@@ -1,10 +1,11 @@
 var mraa = require('mraa'); //require mraa
+var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
 var net = require('net');
 var childProcess = require('child_process'), child;
 var doorconfig = require('./config'); // door configuration
-var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
+
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
 var config = {
