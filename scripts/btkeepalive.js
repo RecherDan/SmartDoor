@@ -33,7 +33,7 @@ var port = new SerialPort('/dev/rfcomm0');
 	})	
 	port.on('data', function(data) {
 		console.log('bt recived:' + data);
-		if ( data == "3" ) {
+		if ( data == "4" ) {
 			receivedpong = 1;
 			failcount = 0;
 		}
@@ -75,7 +75,7 @@ setInterval(function() {
 	if ( receivedpong == 1 ) {
 		receivedpong = 0;
 	}
-	port.write("2");
+	port.write("3");
 }, the_interval);
 
 var server = net.createServer(function(socket) {
