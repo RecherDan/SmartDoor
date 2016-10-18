@@ -2,7 +2,7 @@ var mraa = require('mraa'); //require mraa
 var sleep = require('sleep'); //require sleep libary to delay between commands
 var net = require('net'); // require net for open server.
 var doorconfig = require('./config'); // door configuration
-var minutes = 0.000001, the_interval = minutes * 60 * 1000;
+var minutes = 0.05, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
 var AlretCount = 0;
