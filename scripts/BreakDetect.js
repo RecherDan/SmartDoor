@@ -5,6 +5,9 @@ var doorconfig = require('./config'); // door configuration
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
+var ThrasholdConsiderdOpen= 100 // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
+var ThrasholdConsiderdClose= 900 // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
+
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
 	    authDomain: "smartdoor-2f29b.firebaseapp.com",
@@ -31,7 +34,9 @@ setInterval(function() {
 	var doorneedtobe = doorref.child('doorneedtobe');
 	doorneedtobe.on('value' , snap => {
 			if ( MotorStatus() != snap.val() ) {
+				Console.log("Possible to be thief");
 				if ( snap.val() == "Close" ) {
+					Console.log("ok lets send notifications");
 					var notification = {
 							title: "Thief Alert",
 						       	msg: "someone is opening your lock manually!",
