@@ -35,7 +35,9 @@ var SmokeTime = 0;
 setInterval(function() {
 	if ( SmokeDetect() == 1 ) {
 		Smokecount++;
+		console.log("Detected smoke number: " + Smokecount);
 		if ( Smokecount >= 3 )
+			console.log("Detected smoke updating!");
 			doorref.child('smokedetect').set('Detected');
 	}
 	if ( SmokeDetect() == 0 ) {
