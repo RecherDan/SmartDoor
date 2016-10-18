@@ -34,7 +34,7 @@ var maxStepsToOpen = 7000; // how many maximum!!!!! steps to open or close the d
 var dirToOpen =1;// set the dirction of side the motor will spin
 var dirToClose =0;// the same ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 var inOperation = 0;
-var half_time_Of_Sleep_Between_Steps=1200;// the time in micorSecends between the digitalwirte 1 and!! 0 to the step pin
+var half_time_Of_Sleep_Between_Steps=2400;// the time in micorSecends between the digitalwirte 1 and!! 0 to the step pin
 var commendstr="unnoknown";
 
 // this function used for printing door status to the screen

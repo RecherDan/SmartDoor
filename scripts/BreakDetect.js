@@ -53,7 +53,7 @@ setInterval(function() {
 							   console.log('Child Process STDERR: '+stderr);
 							 });
 	
-								doorref.child('notification').set(notification);
+						doorref.child('notification').set(notification);
 					    var stop = new Date().getTime();
 						while(new Date().getTime() < stop + 10000) {
 							;
