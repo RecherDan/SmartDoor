@@ -1,6 +1,6 @@
+var mraa = require('mraa'); //require mraa
 var Firebase = require("firebase");
 var getIP = require('external-ip')();
-var mraa = require('mraa'); //require mraa
 var net = require('net');
 var childProcess = require('child_process'), child;
 var doorconfig = require('./config'); // door configuration
