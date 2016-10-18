@@ -59,6 +59,10 @@ setInterval(function() {
 					}
 					notification['popup'] = "false";
 					doorref.child('notification').set(notification);
+				    var stop = new Date().getTime();
+					while(new Date().getTime() < stop + 60000) {
+						;
+					}
 				}
 			}
 		}
