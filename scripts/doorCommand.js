@@ -62,9 +62,9 @@ function StepMotor(Direction) {
 	    StepPin.write(0);
 	    sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
 	    var PotentiometerRead = PotentiometerStatus.read();
-	    if (Direction == "Open" && PotentiometerRead < ThrasholdConsiderdOpen)
+	    if (Direction == "Open" && MotorStatus() == "Open" )
 	    	break;
-	    if (Direction == "Close" && PotentiometerRead > ThrasholdConsiderdClose)
+	    if (Direction == "Close" && MotorStatus() == "Close" )
 	    	break;
     }
     
