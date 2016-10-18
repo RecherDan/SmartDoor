@@ -20,8 +20,8 @@ var minutes = 0.1, the_interval = minutes * 60 * 1000;
 //MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
 function MotorStatus() {
 	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead < doorconfig.ThrasholdConsiderdOpen ) return "Open";
-	else if ( PotentiometerRead > doorconfig.ThrasholdConsiderdClose ) return "Close";
+	if ( PotentiometerRead > ThrasholdConsiderdOpen ) return "Open";
+	else if ( PotentiometerRead < ThrasholdConsiderdClose ) return "Close";
 	return "Middle";
 }
 
