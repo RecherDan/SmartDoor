@@ -34,9 +34,9 @@ setInterval(function() {
 	var doorneedtobe = doorref.child('doorneedtobe');
 	doorneedtobe.on('value' , snap => {
 			if ( MotorStatus() != snap.val() ) {
-				Console.log("Possible to be thief");
+				console.log("Possible to be thief");
 				if ( snap.val() == "Close" ) {
-					Console.log("ok lets send notifications");
+					console.log("ok lets send notifications");
 					var notification = {
 							title: "Thief Alert",
 						       	msg: "someone is opening your lock manually!",
