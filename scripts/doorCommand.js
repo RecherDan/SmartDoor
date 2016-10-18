@@ -142,6 +142,8 @@ var server = net.createServer(function(socket) {
 			doorCom(data);
 			var motorStatus = MotorStatus();
 			doorref.child('doorstatus').set(motorStatus);
+			sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
+			doorref.child('doorneedtobe').set(motorStatus);
 			inOperation = 0;
 			socket.write("Door " + motorStatus);
 		}
