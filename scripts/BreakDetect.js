@@ -1,4 +1,3 @@
-var mraa = require('mraa'); //require mraa
 var sleep = require('sleep'); //require sleep libary to delay between commands
 var net = require('net'); // require net for open server.
 var doorconfig = require('./config'); // door configuration
@@ -19,20 +18,13 @@ Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
-var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 
-//MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
-function MotorStatus() {
-	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead > doorconfig.ThrasholdConsiderdOpen-50 ) return "Open";
-	else if ( PotentiometerRead < doorconfig.ThrasholdConsiderdClose+50 ) return "Close";
-	return "Middle";
-}
+if ( doorconfig.BreakDetectService == false ) return;	
 
 setInterval(function() {
 	var doorneedtobe = doorref.child('doorneedtobe');
 	doorneedtobe.on('value' , snap => {
-			if ( MotorStatus() != snap.val() ) {
+			if ( doorconfig.MotorStatus(1) != snap.val() ) {
 				console.log("Possible to be thief");
 				if ( snap.val() == "Close" ) {
 					AlretCount++;

@@ -63,6 +63,8 @@ var port = new SerialPort('/dev/rfcomm0');
 
 	});
 
+	if ( doorconfig.BtKeepOnlineService == false ) return;	
+
 setInterval(function() {
 	if ( receivedpong == 0 ) {
 		failcount++;

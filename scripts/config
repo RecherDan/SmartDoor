@@ -12,7 +12,7 @@ config.PotentionmeterLowThreshold = 710;
 config.PotentionmeterHighThreshold = 910;
 config.MotorStatusPrecisionMul = 50;
 // 1 is ClockWise, 0 is counterClockWise
-config.MotorDirectionToClose = 1;
+config.MotorDirectionToClose = 0;
 config.MotorDirectionToOpen = 1- config.MotorDirectionToClose;
 config.MotorThreshold = 7000;
 config.MotorSpeed = 10;
@@ -21,6 +21,11 @@ config.MotionService = false;
 config.SpeechService = false;
 config.AlarmService = false;
 config.MotorService = false;
+config.KnockDetectService = false;
+config.SmokeDetectService = false;
+config.BtKeepOnlineService = false;
+config.BreakDetectService = false;
+config.DoorStatusService = false;
 config.NotificationService = false;
 
 config.MotorStatus = function (precision) {

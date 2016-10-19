@@ -32,6 +32,8 @@ var doorref = rootref.child(doorconfig.doorname);
 var Smokecount = 0;
 var SmokeTime = 0;
 
+if ( doorconfig.SmokeDetectService == false ) return;
+
 setInterval(function() {
 	if ( SmokeDetect() == 1 ) {
 		Smokecount++;

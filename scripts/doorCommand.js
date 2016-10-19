@@ -28,18 +28,13 @@ var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 
 
 // global definitions
-var ThrasholdConsiderdOpen= doorconfig.ThrasholdConsiderdOpen; // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
-var ThrasholdConsiderdClose= doorconfig.ThrasholdConsiderdClose; // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
-var maxStepsToOpen = 7000; // how many maximum!!!!! steps to open or close the door the motore sould do
-var dirToOpen =1;// set the dirction of side the motor will spin
-var dirToClose =0;// the same ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 var inOperation = 0;
-var half_time_Of_Sleep_Between_Steps=7000;// was 1200 the time in micorSecends between the digitalwirte 1 and!! 0 to the step pin
 var commendstr="unnoknown";
+
+if ( doorconfig.MotorService == false ) return;
 
 // this function used for printing door status to the screen
 function PrintDoorStatus(MSG) {
-	// TODO: command to screen!
 	doorref.child('doormsg').set(MSG);
 	console.log(MSG);
 }
@@ -51,10 +46,7 @@ function StepMotor(Direction) {
 	
 	// set direction
 	DirectionPin.write((Direction == "Open") ? doorconfig.MotorDirectionToOpen : doorconfig.MotorDirectionToClose);
-//    if (Direction == "Open") 
-//    	DirectionPin.write(dirToOpen);
-//    else 
-//    	DirectionPin.write(dirToClose);
+
     var sleep_between_steps = (doorconfig.MotorMaxSpeed + 1 - doorconfig.MotorSpeed ) * 1000;
     
     for(var i = 0; i < doorconfig.MotorThreshold ;i++){
@@ -75,20 +67,6 @@ function StepMotor(Direction) {
 	// rely off
 	myDigitalPin7.write(0);
 }
-
-// MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
-//function MotorStatus() {
-//	var PotentiometerRead = PotentiometerStatus.read();
-//	if ( PotentiometerRead > ThrasholdConsiderdOpen ) return "Open";
-//	else if ( PotentiometerRead < ThrasholdConsiderdClose ) return "Close";
-//	return "Middle";
-//}
-//function PrintMotorStatus() {
-//	var PotentiometerRead = PotentiometerStatus.read();
-//	if ( PotentiometerRead > ThrasholdConsiderdOpen-50 ) return "Open";
-//	else if ( PotentiometerRead < ThrasholdConsiderdClose+50 ) return "Close";
-//	return "Middle";
-//}
 
 // DoorCom receives "Open" or "Close" and then controlling the stepper to open or close.
 function doorCom(command) {
@@ -139,8 +117,7 @@ function doorCom(command) {
 
 doorref.child('doorstatus').set(doorconfig.MotorStatus(1));
 
-console.log("Check config: ");
-console.log("doorconfig.MotorStatus " + doorconfig.MotorStatus(0));
+
 // open socket server and wait to commands.
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);

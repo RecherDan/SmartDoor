@@ -19,6 +19,8 @@ var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
 
+if ( doorconfig.SpeechService == false ) return;
+
 function startRecord() {
 	var proc = require('child_process').spawn("arecord", ['-t','raw','-r','16000','-f','S16_LE','./test2.raw'] );
 	console.log("start recording2");

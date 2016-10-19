@@ -25,9 +25,8 @@ var minThreshold = 100;
 var MaxtimeBetweenKnocks = 3000;
 var MintimeBetweenKnocks = 500;
 
-function connectrecord() {
+if ( doorconfig.KnockDetectService == false ) return;
 
-}
 setInterval(function() {
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {

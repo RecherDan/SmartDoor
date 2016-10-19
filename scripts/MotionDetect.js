@@ -15,6 +15,9 @@ Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
+
+if ( doorconfig.MotionService == false ) return;
+
 setInterval(function() {
 	if (myDigitalPin6.read() == 1 ) {
 		console.log("Movement!")
