@@ -60,6 +60,10 @@ function StepMotor(Direction) {
     for(var i = 0; i < doorconfig.MotorThreshold ;i++){
 	    StepPin.write(1);
 	    sleep.usleep(sleep_between_steps);
+	    if (Direction == "Open" && doorconfig.MotorStatus(0) == "Open" )
+	    	break;
+	    if (Direction == "Close" && doorconfig.MotorStatus(0) == "Close" )
+	    	break;
 	    StepPin.write(0);
 	    sleep.usleep(sleep_between_steps) ;
 	    if (Direction == "Open" && doorconfig.MotorStatus(0) == "Open" )
