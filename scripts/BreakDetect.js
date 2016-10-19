@@ -25,10 +25,9 @@ setInterval(function() {
 	var doorneedtobe = doorref.child('doorneedtobe');
 	doorneedtobe.on('value' , snap => {
 			if ( doorconfig.MotorStatus(1) != snap.val() ) {
-				console.log("Possible to be thief");
 				if ( snap.val() == "Close" ) {
 					AlretCount++;
-					if (AlretCount >= 3 ) {
+					if (AlretCount >= 2 ) {
 						console.log("ok lets send notifications");
 						var notification = {
 								title: "Thief Alert",
