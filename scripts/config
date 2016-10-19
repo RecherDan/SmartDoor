@@ -25,7 +25,7 @@ config.MotorStatus = function (precision) {
 	var OpenThreshold = ( config.MotorDirectionToClose == 0 ) ? config.PotentionmeterHighThreshold : config.PotentionmeterLowThreshold;
 	var CloseThreshold = ( config.MotorDirectionToClose == 1 ) ? config.PotentionmeterHighThreshold : config.PotentionmeterLowThreshold;
 	if ( PotentiometerRead > (config.PotentionmeterHighThreshold - precision*config.MotorStatusPrecisionMul)  ) return ( config.MotorDirectionToClose == 0 ) ? "Open" : "Close";
-	else if ( PotentiometerRead < (config.PotentionmeterLowThreshold +  precision*config.MotorStatusPrecisionMul ) return ( config.MotorDirectionToClose == 1 ) ? "Open" : "Close";
+	else if ( PotentiometerRead < (config.PotentionmeterLowThreshold +  precision*config.MotorStatusPrecisionMul) ) return ( config.MotorDirectionToClose == 1 ) ? "Open" : "Close";
 	return "Middle";
 }
 module.exports = config;
