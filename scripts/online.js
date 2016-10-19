@@ -37,7 +37,7 @@ console.log("start updating online status");
 getIP(function (err, ip) {
     if (err) {
         // every service in the list has failed 
-        throw err;
+        console.log(err);
     }
     eip = ip;
 });
