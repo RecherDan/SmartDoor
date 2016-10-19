@@ -106,6 +106,16 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  applyService(6001, "Open", false);
 		  } 
+		  if ( snapshot.child('todo').val()  == "AlarmOff" ) {
+			  applyService(6007, "Off", true);
+			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("Off");
+				var notification = {
+						title: "",
+					    msg: "",
+						popup: "false"	
+					}	
+				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+		  }
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("On");
@@ -127,13 +137,13 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 						popup: "true"	
 					}	
 				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
-			    var stop = new Date().getTime();
-				while(new Date().getTime() < stop + 10000) {
-					;
-				}
-				notification['popup'] = "false";
-				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
-				applyService(6007, "Off", true);
+//			    var stop = new Date().getTime();
+//				while(new Date().getTime() < stop + 10000) {
+//					;
+//				}
+//				notification['popup'] = "false";
+//				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+//				applyService(6007, "Off", true);
 		  } 
 	  }
 		  
