@@ -1,7 +1,7 @@
 var mraa = require('mraa'); //require mraa
 var sleep = require('sleep'); //require sleep libary to delay between commands
 var net = require('net'); // require net for open server.
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -134,6 +134,9 @@ function doorCom(command) {
 }
 
 doorref.child('doorstatus').set(PrintMotorStatus());
+
+console.log("Check config: ");
+console.log("doorconfig.MotorStatus" + doorconfig.MotorStatus(0));
 // open socket server and wait to commands.
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);

@@ -5,7 +5,7 @@ var Firebase = require("firebase");
 var getIP = require('external-ip')();
 var net = require('net');
 var childProcess = require('child_process'), child;
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
@@ -60,8 +60,19 @@ function storeLog(name, todo) {
 	  }
 	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
 }
-function applyService (port, mode, emergency) {
+function applyService (service, mode, emergency) {
 	emergencycount = 0;
+	var port = 0;
+	switch(service) {
+		case "Motor":
+			port = 6001;
+			break;
+		case "Alarm":
+			port = 6007;
+			break;
+		default:
+			return;
+	}
 	  if ( doorconfig.debug == false ) {
 		  var client = new net.Socket();
 		  client.connect(port, '127.0.0.1', function() {
@@ -100,29 +111,35 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  console.log("todo " + snapshot.child('todo').val());
 		  if ( snapshot.child('todo').val()  == "Lock" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  applyService(6001, "Close", false);
+			  if (doorconfig.MotorService) 
+				  applyService("Motor", "Close", false);
 		  } 
 		  if ( snapshot.child('todo').val()  == "Unlock" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  applyService(6001, "Open", false);
+			  if (doorconfig.MotorService) 
+				  applyService("Motor", "Open", false);
 		  } 
 		  if ( snapshot.child('todo').val()  == "AlarmOff" ) {
-			  applyService(6007, "Off", true);
+			  if (doorconfig.AlarmService) 
+				  applyService("Alarm", "Off", true);
 			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("Off");
 				var notification = {
 						title: "",
 					    msg: "",
 						popup: "false"	
-					}	
+				}	
 				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
 		  }
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
 			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("On");
-			  applyService(6001, "Open", true);
-			  applyService(6007, "On", true);
+			  if (doorconfig.MotorService)
+				  applyService("Motor", "Open", true);
+			  if (doorconfig.AlarmService)
+				  applyService("Alarm", "On", true);
 			  // send notification to android devices
-			  child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Emergency!!!" "Some one apply the emegency mode!"', function (error, stdout, stderr) {
+			  if (doorconfig.NotificationService) {
+				  child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Emergency!!!" "Some one apply the emegency mode!"', function (error, stdout, stderr) {
 				   if (error) {
 				     console.log(error.stack);
 				     console.log('Error code: '+error.code);
@@ -131,6 +148,7 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 				   console.log('Child Process STDOUT: '+stdout);
 				   console.log('Child Process STDERR: '+stderr);
 				 });
+			  }
 				var notification = {
 						title: "Emergency!!!",
 					       	msg: "Some one apply the emegency mode!",
