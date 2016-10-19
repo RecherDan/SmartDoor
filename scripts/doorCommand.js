@@ -50,21 +50,21 @@ function StepMotor(Direction) {
 	myDigitalPin7.write(1);
 	
 	// set direction
-    if (Direction == "Open") 
-    	DirectionPin.write(dirToOpen);
-    else 
-    	DirectionPin.write(dirToClose);
+	DirectionPin.write((Direction == "Open") ? doorconfig.MotorDirectionToOpen : doorconfig.MotorDirectionToClose);
+//    if (Direction == "Open") 
+//    	DirectionPin.write(dirToOpen);
+//    else 
+//    	DirectionPin.write(dirToClose);
+    var sleep_between_steps = (doorconfig.MotorMaxSpeed + 1 - doorconfig.MotorSpeed ) * 1000;
     
-    
-    for(var i = 0; i < maxStepsToOpen ;i++){
+    for(var i = 0; i < doorconfig.MotorThreshold ;i++){
 	    StepPin.write(1);
-	    sleep.usleep(half_time_Of_Sleep_Between_Steps);
+	    sleep.usleep(sleep_between_steps);
 	    StepPin.write(0);
-	    sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
-	    var PotentiometerRead = PotentiometerStatus.read();
-	    if (Direction == "Open" && MotorStatus() == "Open" )
+	    sleep.usleep(sleep_between_steps) ;
+	    if (Direction == "Open" && doorconfig.MotorStatus(0) == "Open" )
 	    	break;
-	    if (Direction == "Close" && MotorStatus() == "Close" )
+	    if (Direction == "Close" && doorconfig.MotorStatus(0) == "Close" )
 	    	break;
     }
     
@@ -73,22 +73,22 @@ function StepMotor(Direction) {
 }
 
 // MotorStatus read Potentiometer Status and consider if door is "Open", "Close" or in the "Middle"
-function MotorStatus() {
-	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead > ThrasholdConsiderdOpen ) return "Open";
-	else if ( PotentiometerRead < ThrasholdConsiderdClose ) return "Close";
-	return "Middle";
-}
-function PrintMotorStatus() {
-	var PotentiometerRead = PotentiometerStatus.read();
-	if ( PotentiometerRead > ThrasholdConsiderdOpen-50 ) return "Open";
-	else if ( PotentiometerRead < ThrasholdConsiderdClose+50 ) return "Close";
-	return "Middle";
-}
+//function MotorStatus() {
+//	var PotentiometerRead = PotentiometerStatus.read();
+//	if ( PotentiometerRead > ThrasholdConsiderdOpen ) return "Open";
+//	else if ( PotentiometerRead < ThrasholdConsiderdClose ) return "Close";
+//	return "Middle";
+//}
+//function PrintMotorStatus() {
+//	var PotentiometerRead = PotentiometerStatus.read();
+//	if ( PotentiometerRead > ThrasholdConsiderdOpen-50 ) return "Open";
+//	else if ( PotentiometerRead < ThrasholdConsiderdClose+50 ) return "Close";
+//	return "Middle";
+//}
 
 // DoorCom receives "Open" or "Close" and then controlling the stepper to open or close.
 function doorCom(command) {
-	var motorStatus = MotorStatus();
+	var motorStatus = doorconfig.MotorStatus(1);
 	
 	// checks if any operation is needed.
 	if ( command == "Open" && motorStatus == "Open" ) {
@@ -117,7 +117,7 @@ function doorCom(command) {
 	StepMotor(command);
 		
 	// check status after operation
-	motorStatus = MotorStatus();
+	motorStatus = doorconfig.MotorStatus(1);
 	
 	if ( command == "Open" && motorStatus == "Open" ) {
 		PrintDoorStatus("Door Open sucessfully!");
@@ -133,10 +133,10 @@ function doorCom(command) {
 	PrintDoorStatus("Some Errors occurs while trying to " + command + " the Door. current status is: " + motorStatus);
 }
 
-doorref.child('doorstatus').set(PrintMotorStatus());
+doorref.child('doorstatus').set(doorconfig.MotorStatus(1));
 
 console.log("Check config: ");
-console.log("doorconfig.MotorStatus" + doorconfig.MotorStatus(0));
+console.log("doorconfig.MotorStatus " + doorconfig.MotorStatus(0));
 // open socket server and wait to commands.
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
@@ -149,9 +149,9 @@ var server = net.createServer(function(socket) {
 			// motor is in use don't allow others to do operation!
 			inOperation = 1;
 			doorCom(data);
-			var motorStatus = PrintMotorStatus();
+			var motorStatus = doorconfig.MotorStatus(1);
 			doorref.child('doorstatus').set(motorStatus);
-			sleep.usleep(half_time_Of_Sleep_Between_Steps) ;
+			sleep.usleep(1000) ;
 			doorref.child('doorneedtobe').set(motorStatus);
 			inOperation = 0;
 			socket.write("Door " + motorStatus);
