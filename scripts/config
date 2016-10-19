@@ -5,8 +5,6 @@ var config = {};
 
 config.debug = false;
 config.doorname = "Technion-door";
-config.ThrasholdConsiderdOpen= 910; // a reading form the analog pin 0 (in rang of 0 to 1023) blow it the door is considerd opne
-config.ThrasholdConsiderdClose= 710; // a reading form the analog pin 0 (in rang of 0 to 1023) above it the door is considerd close
 config.SmokeThresh = 450;
 config.PotentionmeterLowThreshold = 710;
 config.PotentionmeterHighThreshold = 910;
@@ -17,16 +15,20 @@ config.MotorDirectionToOpen = 1- config.MotorDirectionToClose;
 config.MotorThreshold = 7000;
 config.MotorSpeed = 10;
 config.MotorMaxSpeed = 10;
+
+// Enabling each service 
 config.MotionService = false;
 config.SpeechService = false;
 config.AlarmService = false;
-config.MotorService = false;
+config.MotorService = true;
 config.KnockDetectService = false;
 config.SmokeDetectService = false;
 config.BtKeepOnlineService = false;
-config.BreakDetectService = false;
-config.DoorStatusService = false;
+config.BreakDetectService = true;
+config.DoorStatusService = true;
 config.NotificationService = false;
+
+
 
 config.MotorStatus = function (precision) {
 	var PotentiometerRead = PotentiometerStatus.read();
