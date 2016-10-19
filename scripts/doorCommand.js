@@ -133,7 +133,7 @@ function doorCom(command) {
 	PrintDoorStatus("Some Errors occurs while trying to " + command + " the Door. current status is: " + motorStatus);
 }
 
-
+doorref.child('doorstatus').set(PrintMotorStatus());
 // open socket server and wait to commands.
 var server = net.createServer(function(socket) {
 	socket.setKeepAlive(true,60000);
