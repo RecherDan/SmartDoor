@@ -1,6 +1,6 @@
 var net = require('net');
 var Firebase = require("firebase");
-var doorconfig = require('/home/root/smartdoor/config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",

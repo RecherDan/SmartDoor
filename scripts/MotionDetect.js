@@ -2,7 +2,7 @@ var mraa = require('mraa'); //require mraa
 var minutes = 0.000001, the_interval = minutes * 60 * 1000;
 var myDigitalPin6 = new mraa.Gpio(6);
 myDigitalPin6.dir(mraa.DIR_IN);
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",

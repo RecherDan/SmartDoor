@@ -12,7 +12,7 @@ var config = {
 	    storageBucket: "",
 	    messagingSenderId: "693048105512"
 	  };
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');

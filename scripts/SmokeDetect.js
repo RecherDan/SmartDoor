@@ -8,7 +8,7 @@ var analogValue = analogPin1.read(); //read the value of the analog pin
 
 var minutes = 0.1, the_interval = minutes * 60 * 1000;
 
-var doorconfig = require('./config'); // door configuration
+var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
