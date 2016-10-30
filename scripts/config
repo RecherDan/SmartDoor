@@ -13,7 +13,7 @@ config.MotorStatusPrecisionMul = 50;
 config.MotorDirectionToClose = 0;
 config.MotorDirectionToOpen = 1- config.MotorDirectionToClose;
 config.MotorThreshold = 7000;
-config.MotorSpeed = 1;
+config.MotorSpeed = 5;
 config.MotorMaxSpeed = 10;
 
 // Enabling each service 
