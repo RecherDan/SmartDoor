@@ -17,16 +17,16 @@ config.MotorSpeed = 1;
 config.MotorMaxSpeed = 10;
 
 // Enabling each service 
-config.MotionService = false;
-config.SpeechService = false;
-config.AlarmService = false;
+config.MotionService = true;
+config.SpeechService = true;
+config.AlarmService = true;
 config.MotorService = true;
-config.KnockDetectService = false;
+config.KnockDetectService = true;
 config.SmokeDetectService = false;
-config.BtKeepOnlineService = false;
+config.BtKeepOnlineService = true;
 config.BreakDetectService = true;
 config.DoorStatusService = true;
-config.NotificationService = false;
+config.NotificationService = true;
 
 
 
