@@ -17,7 +17,7 @@ Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
-
+doorref.child('bt').set("Off");
 var btdata="";
 var btwait=false;
 var btwaitfailcount=0;
@@ -50,6 +50,7 @@ var port = new SerialPort('/dev/rfcomm0');
 		if ( data == "4" ) {
 			receivedpong = 1;
 			failcount = 0;
+			doorref.child('bt').set("On");
 		}
 		if ( data == "1" || data =="0") {
 			if (btwait && (data == btdata)) {
@@ -76,6 +77,7 @@ setInterval(function() {
 		console.log("fail to receive alram status send again");
 	}
 	if ( failcount >= 3 || btwaitfailcount >= 3 ) {
+		doorref.child('bt').set("Off");
 		console.log("3 times error doing recovery failcount: " + failcount + " btwaitcount: " + btwaitfailcount);
 		var procc = require('child_process').exec("sudo /bin/systemctl restart smartdoor-btkeeponline.service");
 		var proc = require('child_process').exec("sudo bash /home/root/bt/startbt.sh");
