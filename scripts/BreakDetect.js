@@ -5,6 +5,7 @@ var minutes = 0.05, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
 var AlretCount = 0;
+var sendnot = require('/home/root/smartdoor/scripts/sendnot.js')
 
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -35,15 +36,16 @@ setInterval(function() {
 								popup: "true"	
 							}	
 						doorref.child('notification').set(notification);
-						child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
-							   if (error) {
-							     console.log(error.stack);
-							     console.log('Error code: '+error.code);
-							     console.log('Signal received: '+error.signal);
-							   }
-							   console.log('Child Process STDOUT: '+stdout);
-							   console.log('Child Process STDERR: '+stderr);
-							 });
+//						child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
+//							   if (error) {
+//							     console.log(error.stack);
+//							     console.log('Error code: '+error.code);
+//							     console.log('Signal received: '+error.signal);
+//							   }
+//							   console.log('Child Process STDOUT: '+stdout);
+//							   console.log('Child Process STDERR: '+stderr);
+//							 });
+						sendnot.send("Theif" ,"bla bla");
 					    var stop = new Date().getTime();
 						while(new Date().getTime() < stop + 10000) {
 							;
