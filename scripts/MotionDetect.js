@@ -11,7 +11,7 @@ var config = {
 	    storageBucket: "",
 	    messagingSenderId: "693048105512"
 	  };
-Firebase.initializeApp(config, "MotionDetect");
+Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);

@@ -13,7 +13,7 @@ var config = {
 	    messagingSenderId: "693048105512"
 	  };
 var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
-Firebase.initializeApp(config, "BT");
+Firebase.initializeApp(config);
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
