@@ -45,8 +45,10 @@ snapshot.forEach(function(childSnapshot) {
 			fcm.send(message, function(err, response){
 			    if (err) {
 			        console.log("Something has gone wrong!");
+			        return;
 			    } else {
 			        console.log("Successfully sent with response: ", response);
+			        return;
 			    }
 			});
   }
