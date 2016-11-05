@@ -52,7 +52,7 @@ snapshot.forEach(function(childSnapshot) {
 			    }
 			});
   }
-
+return;
 });
 return;
 });
