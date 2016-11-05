@@ -50,6 +50,7 @@ setInterval(function() {
 						while(new Date().getTime() < stop + 10000) {
 							;
 						}
+						console.log("popup false");
 						notification['popup'] = "false";
 						doorref.child('notification').set(notification);
 					    var stop = new Date().getTime();
