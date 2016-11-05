@@ -16,7 +16,7 @@ var config = {
 	    storageBucket: "",
 	    messagingSenderId: "693048105512"
 	  };
-Firebase.initializeApp(config);
+Firebase.initializeApp(config, "Online");
 var database = Firebase.database();
 var doorstatus = "closed";
 var smokedet = "clean";

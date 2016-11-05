@@ -9,7 +9,7 @@ var config = {
 	    storageBucket: "",
 	    messagingSenderId: "693048105512"
 	  };
-Firebase.initializeApp(config);
+Firebase.initializeApp(config, "DoorStatus");
 var database = Firebase.database();
 
 //pins definitions

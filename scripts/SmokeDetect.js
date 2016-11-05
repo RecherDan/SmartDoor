@@ -25,7 +25,7 @@ function SmokeDetect() {
 	return 0
 }
 
-Firebase.initializeApp(config);
+Firebase.initializeApp(config, "Smoke");
 var database = Firebase.database();
 var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
