@@ -45,7 +45,7 @@ setInterval(function() {
 //							   console.log('Child Process STDOUT: '+stdout);
 //							   console.log('Child Process STDERR: '+stderr);
 //							 });
-						sendnot.send("Theif" ,"bla bla");
+						sendnot.send("Thief Alert" ,"someone is opening your lock manually!");
 					    var stop = new Date().getTime();
 						while(new Date().getTime() < stop + 10000) {
 							;
