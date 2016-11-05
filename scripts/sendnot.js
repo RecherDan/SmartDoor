@@ -1,19 +1,19 @@
 var FCM = require('fcm-node');
-var Firebase2 = require("firebase");
-var doorconfig2 = require('./config'); // door configuration
+var Firebase = require("firebase");
+var doorconfig = require('./config'); // door configuration
 
 var sendnot = {};
 
-var config2 = {
+var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
 	    authDomain: "smartdoor-2f29b.firebaseapp.com",
 	    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
 	    storageBucket: "",
 	    messagingSenderId: "693048105512"
 	  };
-Firebase2.initializeApp(config2, "Sendnot");
+Firebase.initializeApp(config, "Sendnot");
 
-var database = Firebase2.database();
+var database = Firebase.database();
 var rootref = database.ref().child('users');
 //var doorref = rootref.child(doorconfig.doorname);
 
