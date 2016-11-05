@@ -51,6 +51,13 @@ var port = new SerialPort('/dev/rfcomm0');
 			receivedpong = 1;
 			failcount = 0;
 			doorref.child('bt').set("On");
+			doorref.child('alarm').set("Off");
+		}
+		if ( data == "5" ) {
+			receivedpong = 1;
+			failcount = 0;
+			doorref.child('bt').set("On");
+			doorref.child('alarm').set("On");
 		}
 		if ( data == "1" || data =="0") {
 			if (btwait && (data == btdata)) {
