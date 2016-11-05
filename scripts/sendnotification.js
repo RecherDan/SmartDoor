@@ -55,4 +55,4 @@ snapshot.forEach(function(childSnapshot) {
 return;
 });
 
-setTimeout(function(){process.exit(); }, 10000);
+//setTimeout(function(){process.exit(); }, 10000);
