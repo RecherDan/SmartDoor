@@ -30,10 +30,12 @@ setInterval(function() {
 					AlretCount++;
 					if (AlretCount >= 2 ) {
 						console.log("ok lets send notifications");
+						var d = new Date();
 						var notification = {
 								title: "Thief Alert",
-							       	msg: "someone is opening your lock manually!",
-								popup: "true"	
+							    msg: "someone is opening your lock manually!",
+								popup: "true",
+								stime: d.getTime()
 							}	
 						doorref.child('notification').set(notification);
 //						child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
