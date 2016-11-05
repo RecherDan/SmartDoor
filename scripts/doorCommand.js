@@ -52,7 +52,7 @@ function StepMotor(Direction) {
     for(var i = 0; i < doorconfig.MotorThreshold ;i++){
 	    StepPin.write(1);
 	    sleep.usleep(sleep_between_steps);
-	    console.log(i);
+	    console.log("iterate: " + i + " Direction: " + Direction + " motorstatus: " + doorconfig.MotorStatus(0));
 	    if (Direction == "Open" && doorconfig.MotorStatus(0) == "Open" )
 	    	break;
 	    if (Direction == "Close" && doorconfig.MotorStatus(0) == "Close" )
