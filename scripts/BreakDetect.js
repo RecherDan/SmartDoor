@@ -5,7 +5,7 @@ var minutes = 0.05, the_interval = minutes * 60 * 1000;
 var childProcess = require('child_process'), child;
 var Firebase = require("firebase");
 var AlretCount = 0;
-var sendnot = require('/home/root/smartdoor/scripts/sendnot.js')
+
 
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
@@ -21,7 +21,7 @@ var rootref = database.ref().child('doors');
 var doorref = rootref.child(doorconfig.doorname);
 
 if ( doorconfig.BreakDetectService == false ) return;	
-
+var sendnot = require('/home/root/smartdoor/scripts/sendnot.js')
 setInterval(function() {
 	var doorneedtobe = doorref.child('doorneedtobe');
 	doorneedtobe.on('value' , snap => {

@@ -12,17 +12,17 @@ var fcm = new FCM(serverKey);
 
 
 
-
+var config = {
+	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
+	    authDomain: "smartdoor-2f29b.firebaseapp.com",
+	    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
+	    storageBucket: "",
+	    messagingSenderId: "693048105512"
+	  };
+Firebasenot.initializeApp(config, "Sendnot");
 
 sendnot.send = function(Title, Msg) {
-	var config = {
-		    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
-		    authDomain: "smartdoor-2f29b.firebaseapp.com",
-		    databaseURL: "https://smartdoor-2f29b.firebaseio.com",
-		    storageBucket: "",
-		    messagingSenderId: "693048105512"
-		  };
-	Firebasenot.initializeApp(config, "Sendnot");
+
 
 	var database = Firebasenot.database();
 	var rootref = database.ref().child('users');
