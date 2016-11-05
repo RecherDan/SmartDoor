@@ -34,6 +34,7 @@ setInterval(function() {
 							       	msg: "someone is opening your lock manually!",
 								popup: "true"	
 							}	
+						doorref.child('notification').set(notification);
 						child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Thief Alert" "someone is opening your lock manually!"', function (error, stdout, stderr) {
 							   if (error) {
 							     console.log(error.stack);
@@ -43,8 +44,6 @@ setInterval(function() {
 							   console.log('Child Process STDOUT: '+stdout);
 							   console.log('Child Process STDERR: '+stderr);
 							 });
-	
-						doorref.child('notification').set(notification);
 					    var stop = new Date().getTime();
 						while(new Date().getTime() < stop + 10000) {
 							;
