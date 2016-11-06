@@ -27,6 +27,7 @@ config.BtKeepOnlineService = true;
 config.BreakDetectService = true;
 config.DoorStatusService = true;
 config.NotificationService = true;
+config.PotentiometerReadVal = PotentiometerStatus;
 
 
 
