@@ -21,5 +21,5 @@ setInterval(function() {
 	  var rootref = database.ref().child('doors');
 	  var doorref = rootref.child(doorconfig.doorname);
 	  doorref.child('doorcurrentstatus').set(doorconfig.MotorStatus(1));
-	  doorref.child('analogPotentiometerStatus').set(doorconfig.PotentiometerReadVal)
+	  console.log(doorconfig.PotentiometerReadVal);
 }, the_interval);
