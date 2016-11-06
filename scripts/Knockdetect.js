@@ -5,6 +5,8 @@ var analogPin1 = new mraa.Aio(3); //to indecat if the door isclose or not useing
 var childProcess = require('child_process'), child;
 var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
 var Firebase = require("firebase");
+var myDigitalPin2 = new mraa.Gpio(2);
+myDigitalPin2.dir(mraa.DIR_IN);
 var config = {
 	    apiKey: "AIzaSyCRpzldmrnwtOf7M_TBBNGFofyswZ2IifQ",
 	    authDomain: "smartdoor-2f29b.firebaseapp.com",
@@ -21,13 +23,16 @@ var doorref = rootref.child(doorconfig.doorname);
 
 var KnockCount = 0;
 var lastKnock = 0;
-var minThreshold = 35;
+var minThreshold = 100;
 var MaxtimeBetweenKnocks = 6000;
 var MintimeBetweenKnocks = 200;
 
 if ( doorconfig.KnockDetectService == false ) return;
 
 setInterval(function() {
+	if ( myDigitalPin2.read() == 0 ) {
+		console.log("Emm got 0");
+	}
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
 		KnockCount = 0;
