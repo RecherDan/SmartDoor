@@ -23,7 +23,7 @@ var KnockCount = 0;
 var lastKnock = 0;
 var minThreshold = 80;
 var MaxtimeBetweenKnocks = 6000;
-var MintimeBetweenKnocks = 500;
+var MintimeBetweenKnocks = 200;
 
 if ( doorconfig.KnockDetectService == false ) return;
 
