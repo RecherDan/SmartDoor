@@ -10,7 +10,7 @@ config.PotentionmeterLowThreshold = 710;
 config.PotentionmeterHighThreshold = 910;
 config.MotorStatusPrecisionMul = 30;
 // 1 is ClockWise, 0 is counterClockWise
-config.MotorDirectionToClose = 0;
+config.MotorDirectionToClose = 1;
 config.MotorDirectionToOpen = 1- config.MotorDirectionToClose;
 config.MotorThreshold = 7000;
 config.MotorSpeed = 5;
