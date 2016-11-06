@@ -6,7 +6,7 @@ var getIP = require('external-ip')();
 var net = require('net');
 var childProcess = require('child_process'), child;
 var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
-
+var doorname = "Technion-door";
 
 var minutes = 0.01, the_interval = minutes * 60 * 1000;
 var config = {
@@ -47,7 +47,7 @@ function getlanip() {
 	console.log("lan ip");
 	proc.stdout.on('data', (data) => {
 		  console.log(`stdout: ${data}`);
-		  database.ref().child('doors').child(doorconfig.doorname).child('lanip').set(data.toString().replace(/(\r\n|\n|\r)/gm,""));
+		  database.ref().child('doors').child(doorname).child('lanip').set(data.toString().replace(/(\r\n|\n|\r)/gm,""));
 	});
 }
 getlanip();
@@ -58,7 +58,7 @@ function storeLog(name, todo) {
 			  todo: todo,
 			  time: d.getTime()
 	  }
-	  database.ref().child('doors').child(doorconfig.doorname).child('log').push(log);
+	  database.ref().child('doors').child(doorname).child('log').push(log);
 }
 function applyService (service, mode, emergency) {
 	emergencycount = 0;
@@ -104,10 +104,10 @@ function applyService (service, mode, emergency) {
 }
 
 
-database.ref().child('doors').child(doorconfig.doorname).on("value", function(snapshot) {
+database.ref().child('doors').child(doorname).on("value", function(snapshot) {
 		
 	  if (snapshot.child('todo').val() != "null" ) {
-		  database.ref().child('doors').child(doorconfig.doorname).child('todo').set("null");
+		  database.ref().child('doors').child(doorname).child('todo').set("null");
 		  console.log("todo " + snapshot.child('todo').val());
 		  if ( snapshot.child('todo').val()  == "Lock" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
@@ -122,17 +122,17 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 		  if ( snapshot.child('todo').val()  == "AlarmOff" ) {
 			  if (doorconfig.AlarmService) 
 				  applyService("Alarm", "Off", true);
-			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("Off");
+			  database.ref().child('doors').child(doorname).child('Emergency').set("Off");
 				var notification = {
 						title: "",
 					    msg: "",
 						popup: "false"	
 				}	
-				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+				database.ref().child('doors').child(doorname).child('notification').set(notification);
 		  }
 		  if ( snapshot.child('todo').val()  == "Emergency" ) {
 			  storeLog(snapshot.child('todo-name').val(), snapshot.child('todo').val());
-			  database.ref().child('doors').child(doorconfig.doorname).child('Emergency').set("On");
+			  database.ref().child('doors').child(doorname).child('Emergency').set("On");
 			  if (doorconfig.MotorService)
 				  applyService("Motor", "Open", true);
 			  if (doorconfig.AlarmService)
@@ -154,13 +154,13 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 					       	msg: "Some one apply the emegency mode!",
 						popup: "true"	
 					}	
-				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+				database.ref().child('doors').child(doorname).child('notification').set(notification);
 //			    var stop = new Date().getTime();
 //				while(new Date().getTime() < stop + 10000) {
 //					;
 //				}
 //				notification['popup'] = "false";
-//				database.ref().child('doors').child(doorconfig.doorname).child('notification').set(notification);
+//				database.ref().child('doors').child(doorname).child('notification').set(notification);
 //				applyService(6007, "Off", true);
 		  } 
 	  }
@@ -172,10 +172,10 @@ database.ref().child('doors').child(doorconfig.doorname).on("value", function(sn
 
 
 setInterval(function() {
-  //console.log(doorconfig.doorname + ": I am doing my 0.1 minutes check");
+  //console.log(doorname + ": I am doing my 0.1 minutes check");
   var d = new Date();
   var rootref = database.ref().child('doors');
-  var doorref = rootref.child(doorconfig.doorname);
+  var doorref = rootref.child(doorname);
   //exec tester.js to receive door information
   doorref.child('ip').set(eip);
   doorref.child('time').set(d.getTime());
