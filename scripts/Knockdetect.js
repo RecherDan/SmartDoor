@@ -22,7 +22,7 @@ var doorref = rootref.child(doorconfig.doorname);
 var KnockCount = 0;
 var lastKnock = 0;
 var minThreshold = 100;
-var MaxtimeBetweenKnocks = 3000;
+var MaxtimeBetweenKnocks = 6000;
 var MintimeBetweenKnocks = 500;
 
 if ( doorconfig.KnockDetectService == false ) return;
