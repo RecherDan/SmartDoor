@@ -33,7 +33,7 @@ setInterval(function() {
 	if ( myDigitalPin2.read() == 0 ) {
 		//console.log("Emm got 0");
 	}
-	if ( analogPin1.read() > 100 ) console.log("got: " + analogPin1.read() );
+	if ( analogPin1.read() > 50 ) console.log("got: " + analogPin1.read() );
 	var d = new Date();
 	if ( (d.getTime() - lastKnock) >  MaxtimeBetweenKnocks ) {
 		KnockCount = 0;
