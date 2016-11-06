@@ -21,7 +21,7 @@ var doorref = rootref.child(doorconfig.doorname);
 
 var KnockCount = 0;
 var lastKnock = 0;
-var minThreshold = 30;
+var minThreshold = 50;
 var MaxtimeBetweenKnocks = 6000;
 var MintimeBetweenKnocks = 200;
 
@@ -33,13 +33,13 @@ setInterval(function() {
 		KnockCount = 0;
 	}
 	if ( ( analogPin1.read() > minThreshold ) && ((d.getTime() - lastKnock) >  MintimeBetweenKnocks )) {
-		console.log("Took " + KnockCount);
+		console.log("Took " + KnockCount + "Threshold: " +  analogPin1.read());
 		KnockCount=KnockCount+1;
 		lastKnock = d.getTime();
 	}
 	if ( KnockCount >= 3 ) {
 		KnockCount = 0;
-		console.log("Took Took Took");
+		console.log("Took Took Took"  + "Threshold: " +  analogPin1.read());
 		child = childProcess.exec('node /home/root/smartdoor/scripts/sendnotification.js "Took took" "someone knocked your door"', function (error, stdout, stderr) {
 			   if (error) {
 			     console.log(error.stack);
