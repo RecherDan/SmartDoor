@@ -1,5 +1,5 @@
 var mraa = require('mraa'); //require mraa
-var PotentiometerStatus = new mraa.Aio(2); // Potentiometer Status
+var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 
 var config = {};
 
