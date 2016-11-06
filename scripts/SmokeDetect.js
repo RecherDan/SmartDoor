@@ -20,7 +20,6 @@ var config = {
 
 function SmokeDetect() {
 	//TODO: implement to return 1 if smoke detected or 0 else.
-	console.log(analogPin1.read());
 	if ( analogPin1.read() > doorconfig.SmokeThresh) 
 		return 1;
 	return 0
