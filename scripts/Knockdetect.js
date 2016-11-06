@@ -21,7 +21,7 @@ var doorref = rootref.child(doorconfig.doorname);
 
 var KnockCount = 0;
 var lastKnock = 0;
-var minThreshold = 30;
+var minThreshold = 35;
 var MaxtimeBetweenKnocks = 6000;
 var MintimeBetweenKnocks = 200;
 
