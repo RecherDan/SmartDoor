@@ -104,7 +104,8 @@ function applyService (service, mode, emergency) {
 }
 
 
-database.ref().child('doors').child("Technion-door").on("value", function(snapshot) {
+
+database.ref().child('doors').child('Technion-door').on("value", function(snapshot) {
 		
 	  if (snapshot.child('todo').val() != "null" ) {
 		  database.ref().child('doors').child(doorname).child('todo').set("null");
