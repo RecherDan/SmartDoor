@@ -2,7 +2,7 @@
 //var PotentiometerStatus = new mraa.Aio(0); // Potentiometer Status
 //var analogValue = analogPin0.read(); //read the value of the analog pin
 var Firebase = require("firebase");
-var getIP = require('external-ip')();
+//var getIP = require('external-ip')();
 var net = require('net');
 var childProcess = require('child_process'), child;
 var doorconfig = require('/home/root/smartdoor/scripts/config'); // door configuration
@@ -34,13 +34,13 @@ var emergencycount =0;
 //}
 
 console.log("start updating online status");
-getIP(function (err, ip) {
-    if (err) {
-        // every service in the list has failed 
-        console.log(err);
-    }
-    eip = ip;
-});
+//getIP(function (err, ip) {
+//    if (err) {
+//        // every service in the list has failed 
+//        console.log(err);
+//    }
+//    eip = ip;
+//});
 function getlanip() {
 	
 	var proc = require('child_process').spawn("/home/root/scripts/getlanip.sh");
